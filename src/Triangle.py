@@ -1,8 +1,8 @@
 import pygame
 from pygame import Vector2, Rect
-from Systems.Drawable import Drawable
 from Systems.EventSystem import EventSystem
 from Systems.Updatable import Updatable
+from Systems.Drawable import (Drawable)
 
 
 class Triangle(Updatable, Drawable):

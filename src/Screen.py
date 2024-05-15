@@ -1,9 +1,9 @@
 import pygame
 from pygame import Vector2
 
-from Systems.Updater import Updater
-from Systems.Drawer import Drawer
-from Systems.EventSystem import EventSystem
+from src.Systems.Updater import Updater
+from src.Systems.Drawer import Drawer
+from src.Systems.EventSystem import EventSystem
 from Triangle import Triangle
 
 
