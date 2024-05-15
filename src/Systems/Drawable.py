@@ -1,4 +1,4 @@
-from Systems.Drawer import Drawer
+from src.Systems.Drawer import Drawer
 
 
 class Drawable:

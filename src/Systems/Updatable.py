@@ -1,4 +1,4 @@
-from Systems.Updater import Updater
+from src.Systems.Updater import Updater
 
 
 class Updatable:
