@@ -1,5 +1,5 @@
 import pygame
-from pygame import Vector2
+from pygame import Vector2, Vector3
 
 from src.Systems.Updater import Updater
 from src.Systems.Drawer import Drawer
@@ -14,7 +14,7 @@ class Screen:
         self.screen = pygame.display.set_mode([self.resolution, self.resolution])
         self.running = True
         self.getTicksLastFrame = 0
-        p = Vector2(self.resolution, self.resolution)/2
+        p = Vector3(self.resolution,0, self.resolution)/2
         self.tri = Triangle(p)
         while self.running:
             self.t = pygame.time.get_ticks()

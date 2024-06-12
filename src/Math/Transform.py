@@ -7,6 +7,7 @@ from src.Math.VectorMath import VectorMath
 
 class Transform:
     def __init__(self, position=Vector3(0, 0, 0), rotation=0):
+        super().__init__()
         self.__parent: Transform = None
         self.__localPosition: Vector3 = Vector3(position)
         self.__localRotation: float = rotation
@@ -16,6 +17,9 @@ class Transform:
             return Vector3(self.__localPosition)
         else:
             self.__parent.TransformPoint(self.__localPosition)
+
+    def Move(self, vector: Vector3):
+        self.SetPosition(self.GetPosition() + vector)
 
     def GetRotation(self):
         if self.__parent is None:
