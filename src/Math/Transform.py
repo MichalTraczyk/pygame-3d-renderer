@@ -8,17 +8,17 @@ from src.Math.VectorMath import VectorMath
 class Transform:
     def __init__(self, position=Vector3(0, 0, 0), rotation=0):
         self.__parent: Transform = None
-        self.__localPosition = Vector3(position)
-        self.__localRotation = rotation
+        self.__localPosition: Vector3 = Vector3(position)
+        self.__localRotation: float = rotation
 
     def GetPosition(self):
-        if self.__parent == None:
+        if self.__parent is None:
             return Vector3(self.__localPosition)
         else:
             self.__parent.TransformPoint(self.__localPosition)
 
     def GetRotation(self):
-        if self.__parent == None:
+        if self.__parent is None:
             return self.__localRotation
         else:
             self.__parent.GetRotation() + self.__localRotation
@@ -29,19 +29,22 @@ class Transform:
     def GetLocalRotation(self):
         return self.__localRotation
 
-    def Rotate(self, rot):
+    def Rotate(self, rot: float):
         self.__localRotation += rot
 
-    def SetPosition(self):
-        pass
+    def SetPosition(self, pos: Vector3):
+        if self.__parent is None:
+            self.__localPosition = Vector3(pos)
+        else:
+            self.__localPosition = self.__parent.InverseTransformPoint(pos)
 
-    def SetRotation(self):
-        pass
+    def SetRotation(self, rot: float):
+        self.__localRotation = rot
 
-    def SetLocalPosition(self, pos):
+    def SetLocalPosition(self, pos: Vector3):
         self.__localPosition = Vector3(pos)
 
-    def SetLocalRotation(self, rot):
+    def SetLocalRotation(self, rot: float):
         self.__localRotation = rot
 
     def GetForwardVector(self):
