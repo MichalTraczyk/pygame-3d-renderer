@@ -50,21 +50,21 @@ class Transform:
 
     # local position to world
     def TransformPoint(self, vector):
-        anglediff = VectorMath.UnsignedAngle(Vector2(0, 1), vector)
+        anglediff = VectorMath.UnsignedAngle(Vector2(0, 1), Vector2(vector.x, vector.z))
         anglediff += math.radians(self.__localRotation)
-        dist = math.sqrt(vector.x * vector.x + vector.y * vector.y)
+        dist = math.sqrt(vector.x * vector.x + vector.z * vector.z)
         x = math.sin(anglediff) * dist
-        y = math.cos(anglediff) * dist
-        r = Vector3(x, y, 0)
+        z = math.cos(anglediff) * dist
+        r = Vector3(x, vector.y, z)
         return self.GetPosition() + r
 
     # world position to local
     def InverseTransformPoint(self, vector):
-        localDiff = Vector2(vector.x - self.__localPosition.x, vector.y - self.__localPosition.y)
+        localDiff = Vector2(vector.x - self.__localPosition.x, vector.z - self.__localPosition.z)
         angle = -Vector2(0, 1).angle_to(localDiff)
         angle -= self.__localRotation
         angle = math.radians(angle)
         dist = math.sqrt(localDiff.x * localDiff.x + localDiff.y * localDiff.y)
         x = math.sin(angle) * dist
         y = math.cos(angle) * dist
-        return Vector3(x, y, 0)
+        return Vector3(x, vector.y - self.__localPosition.y, y)
