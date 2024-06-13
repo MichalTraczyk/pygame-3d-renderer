@@ -10,7 +10,7 @@ class Camera:
         self.screen_x = screen_x
         self.near_clip = near_clip
 
-    def WorldPosToScreen(self, vertex_pos: Vector3):
+    def world_pos_to_screen(self, vertex_pos: Vector3):
         pos = vertex_pos.copy()
         if pos.z == 0:
             pos.z = self.near_clip
@@ -28,12 +28,18 @@ class Camera:
         screen_y = (1 - dy.x) * self.screen_y / 2
         return Vector2(screen_x, screen_y)
 
-    def IsVertexInFrustrum(self, pos: Vector3):
+    def is_vertex_in_frustrum(self, pos: Vector3):
 
         if pos.z < self.near_clip:
             return False
 
-        screen_pos = self.WorldPosToScreen(pos)
+        screen_pos = self.world_pos_to_screen(pos)
         if screen_pos.x < 0 or screen_pos.x >= self.screen_x:
             return False
         return 0 <= screen_pos.y < self.screen_y
+
+    def is_face_in_frustrum(self, face: (Vector3, Vector3, Vector3)):
+        for vertex in face:
+            if self.is_vertex_in_frustrum(vertex):
+                return True
+        return False
