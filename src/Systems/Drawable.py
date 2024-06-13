@@ -7,5 +7,5 @@ class Drawable:
         super().__init__()
         Drawer.RegisterDrawable(self)
 
-    def Draw(self,screen):
+    def Draw(self, screen, camera):
         pass

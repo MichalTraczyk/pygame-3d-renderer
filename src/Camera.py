@@ -1,6 +1,9 @@
 from pygame import Vector3, Vector2
 import math
 
+from src.Math.VectorMath import VectorMath
+from src.WorldFace import WorldFace
+
 
 class Camera:
 
@@ -38,8 +41,16 @@ class Camera:
             return False
         return 0 <= screen_pos.y < self.screen_y
 
-    def is_face_in_frustrum(self, face: (Vector3, Vector3, Vector3)):
-        for vertex in face:
+    def is_face_in_frustrum(self, face: WorldFace):
+        for vertex in face.vectors():
             if self.is_vertex_in_frustrum(vertex):
                 return True
         return False
+
+    def will_face_be_rendered(self, face: WorldFace):
+        if not self.is_face_in_frustrum(face):
+            return False
+        normal = VectorMath.face_normal(face)
+        cameraNormal = Vector3(0, 0, 1)
+        dot = VectorMath.Dot(normal, cameraNormal)
+        return dot <= 0

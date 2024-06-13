@@ -1,16 +1,16 @@
 class Drawer:
-
     drawables = []
+    is_dirty = False # na True jeśli była jakakolwiek zmiana na scenie
     @classmethod
-    def RegisterDrawable(cls,drawable):
+    def RegisterDrawable(cls, drawable):
         cls.drawables.append(drawable)
 
     @classmethod
-    def UnregisterDrawable(cls,drawable):
+    def UnregisterDrawable(cls, drawable):
         if drawable in cls.drawables:
             cls.drawables.remove(drawable)
 
     @classmethod
-    def Draw(cls,screen):
+    def Draw(cls, screen, camera):
         for d in cls.drawables:
-            d.Draw(screen)
+            d.Draw(screen, camera)
