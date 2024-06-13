@@ -2,11 +2,11 @@ class Updater:
 
     updatables = []
     @classmethod
-    def RegisterDrawable(cls,updatable):
+    def RegisterUpdatable(cls,updatable):
         cls.updatables.append(updatable)
 
     @classmethod
-    def UnregisterDrawable(cls,updatable):
+    def UnregisterUpdatable(cls,updatable):
         if updatable in cls.updatables:
             cls.updatables.remove(updatable)
 
