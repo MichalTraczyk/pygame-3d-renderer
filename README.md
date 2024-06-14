@@ -5,4 +5,3 @@ Project -> Python interpreter -> add interpreter -> add local interpreter -> Vir
 
 Biblioteki:
 pygame
-pygame-gui
