@@ -38,8 +38,7 @@ class Screen:
                 self.screen.fill((0, 0, 0))
                 Drawer.Draw(self.screen, self.camera)
                 Drawer.is_dirty = False
-
-            pygame.display.flip()
+                pygame.display.flip()
         pygame.quit()
 
     def onQuit(self):

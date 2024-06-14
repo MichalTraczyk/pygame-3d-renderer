@@ -52,13 +52,16 @@ class Transform:
         self.__localRotation = rot
 
     def GetForwardVector(self):
-        return Vector2(math.sin(math.radians(self.__localRotation)),
+        return Vector3(math.sin(math.radians(self.__localRotation)),0,
                        math.cos(math.radians(self.__localRotation))).normalize()
 
     # local position to world
     def TransformPoint(self, vector):
-        anglediff = VectorMath.UnsignedAngle(Vector2(0, 1), Vector2(vector.x, vector.z))
-        anglediff += math.radians(self.__localRotation)
+        if(vector.x == 0 and vector.z == 0):
+            return self.GetPosition() + vector
+        anglediff =Vector2(0, 1).angle_to(Vector2(vector.x, vector.z))
+        anglediff += self.__localRotation
+        anglediff = math.radians(anglediff)
         dist = math.sqrt(vector.x * vector.x + vector.z * vector.z)
         x = math.sin(anglediff) * dist
         z = math.cos(anglediff) * dist
