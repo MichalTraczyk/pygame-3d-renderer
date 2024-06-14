@@ -12,53 +12,53 @@ class Transform:
         self.__localPosition: Vector3 = Vector3(position)
         self.__localRotation: float = rotation
 
-    def GetPosition(self):
+    def get_position(self):
         if self.__parent is None:
             return Vector3(self.__localPosition)
         else:
-            self.__parent.TransformPoint(self.__localPosition)
+            self.__parent.transform_point(self.__localPosition)
 
-    def Move(self, vector: Vector3):
-        self.SetPosition(self.GetPosition() + vector)
+    def move(self, vector: Vector3):
+        self.set_position(self.get_position() + vector)
 
-    def GetRotation(self):
+    def get_rotation(self):
         if self.__parent is None:
             return self.__localRotation
         else:
-            self.__parent.GetRotation() + self.__localRotation
+            self.__parent.get_rotation() + self.__localRotation
 
-    def GetLocalPosition(self):
+    def get_local_position(self):
         return Vector3(self.__localPosition)
 
-    def GetLocalRotation(self):
+    def get_local_rotation(self):
         return self.__localRotation
 
-    def Rotate(self, rot: float):
+    def rotate(self, rot: float):
         self.__localRotation += rot
 
-    def SetPosition(self, pos: Vector3):
+    def set_position(self, pos: Vector3):
         if self.__parent is None:
             self.__localPosition = Vector3(pos)
         else:
-            self.__localPosition = self.__parent.InverseTransformPoint(pos)
+            self.__localPosition = self.__parent.inverse_transform_point(pos)
 
-    def SetRotation(self, rot: float):
+    def set_rotation(self, rot: float):
         self.__localRotation = rot
 
-    def SetLocalPosition(self, pos: Vector3):
+    def set_local_position(self, pos: Vector3):
         self.__localPosition = Vector3(pos)
 
-    def SetLocalRotation(self, rot: float):
+    def set_local_rotation(self, rot: float):
         self.__localRotation = rot
 
-    def GetForwardVector(self):
+    def get_forward_vector(self):
         return Vector3(math.sin(math.radians(self.__localRotation)),0,
                        math.cos(math.radians(self.__localRotation))).normalize()
 
     # local position to world
-    def TransformPoint(self, vector):
-        if(vector.x == 0 and vector.z == 0):
-            return self.GetPosition() + vector
+    def transform_point(self, vector):
+        if vector.x == 0 and vector.z == 0:
+            return self.get_position() + vector
         anglediff =Vector2(0, 1).angle_to(Vector2(vector.x, vector.z))
         anglediff += self.__localRotation
         anglediff = math.radians(anglediff)
@@ -66,10 +66,10 @@ class Transform:
         x = math.sin(anglediff) * dist
         z = math.cos(anglediff) * dist
         r = Vector3(x, vector.y, z)
-        return self.GetPosition() + r
+        return self.get_position() + r
 
     # world position to local
-    def InverseTransformPoint(self, vector):
+    def inverse_transform_point(self, vector):
         localDiff = Vector2(vector.x - self.__localPosition.x, vector.z - self.__localPosition.z)
         angle = -Vector2(0, 1).angle_to(localDiff)
         angle -= self.__localRotation

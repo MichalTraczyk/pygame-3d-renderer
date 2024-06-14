@@ -9,14 +9,14 @@ from src.Math.Transform import Transform
 class Triangle(Updatable, Drawable, Transform):
     def __init__(self, pos):
         super().__init__()
-        self.SetPosition(pos)
+        self.set_position(pos)
         self.speed = 200
 
-    def Update(self, deltaTime):
+    def update(self, deltaTime):
         move = EventSystem.GetAxis() * self.speed * deltaTime
-        self.Move(Vector3(move.x, 0, move.y))
+        self.move(Vector3(move.x, 0, move.y))
 
-    def Draw(self, screen, camera):
-        pos = self.GetPosition()
+    def draw(self, screen, camera):
+        pos = self.get_position()
         rect = Rect(pos.x - 15, pos.z - 15, 30, 30)
         pygame.draw.rect(screen, (255, 0, 0), rect)

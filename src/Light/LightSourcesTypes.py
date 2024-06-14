@@ -13,7 +13,7 @@ class DirectionalLight(LightSource):
 
     def get_light_level(self, face: WorldFace):
         normal = VectorMath.face_normal(face)
-        direction = VectorMath.normalize_vector(self.TransformPoint(self.direction)-self.GetPosition())  # do sprawdzenia
+        direction = VectorMath.normalize_vector(self.transform_point(self.direction) - self.get_position())  # do sprawdzenia
 
         dot = VectorMath.Dot(normal, direction)
         if dot < 0:
@@ -28,7 +28,7 @@ class PointLight(LightSource):
     def get_light_level(self, face: WorldFace):
         normal = VectorMath.face_normal(face)
         middle = VectorMath.face_middle(face)
-        direction = VectorMath.normalize_vector(super().GetPosition() - middle)
+        direction = VectorMath.normalize_vector(super().get_position() - middle)
 
         dot = VectorMath.Dot(normal, direction)
         if dot < 0:

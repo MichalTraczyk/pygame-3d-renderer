@@ -45,7 +45,7 @@ class Screen:
                 self.onQuit()
 
             EventSystem.AddOnQuitListener(self.onQuit)
-            Updater.Update(self.deltaTime)
+            Updater.update(self.deltaTime)
 
             #obj.SetPosition(Vector3(math.sin(self.t / 1000), math.cos(self.t / 2000)-0.5, 1))
             obj.Rotate(self.deltaTime*40)
