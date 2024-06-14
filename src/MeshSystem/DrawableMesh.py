@@ -17,13 +17,13 @@ class DrawableMesh(Updatable, Drawable, Transform):
         self.set_position(pos)
         self.mesh = None
 
-    def assignMesh(self, mesh: Mesh):
+    def assign_mesh(self, mesh: Mesh):
         self.mesh = mesh
 
-    def world_face_to_screen(self, face: WorldFace, camera: Camera):
+    @staticmethod
+    def world_face_to_screen(face: WorldFace, camera: Camera):
         points = []
         for point in face.vectors():
-            #world_pos = self.TransformPoint(point)
             points.append(camera.world_pos_to_screen(point))
         return points
 

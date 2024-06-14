@@ -24,16 +24,23 @@ class Screen:
 
         self.running = True
         self.getTicksLastFrame = 0
-        # p = Vector3(self.resolution, 0, self.resolution) / 2
-        # self.tri = Triangle(p)
 
         mesh = Primitives.generate_box()
-        obj = DrawableMesh(Vector3(0.2, 0, 2))
-        obj.assignMesh(mesh)
+        obj = DrawableMesh(Vector3(2, 0, 2))
+        obj.assign_mesh(mesh)
+        obj.rotate(10)
+        obj = DrawableMesh(Vector3(-1, 1, 1.7))
+        obj.assign_mesh(mesh)
+        obj.rotate(45)
+        obj = DrawableMesh(Vector3(-0.5, -2, 0.8))
+        obj.assign_mesh(mesh)
+        obj = DrawableMesh(Vector3(1, -2, 2))
+        obj.assign_mesh(Primitives.generate_rotated_pyramid())
 
-        LightManager.register_light(PointLight(Vector3(-1, 0.5, 0.5), 0.9))
-        LightManager.register_light(SkyboxLight(Vector3(0, 0, 0), 0.1))
-        #LightManager.register_light(DirectionalLight(Vector3(0,0,0),Vector3(1,-1,-1), 1))
+        #LightManager.register_light(PointLight(Vector3(-1, 0.5, 0.5), 0.9, Color(255, 0, 0)))
+        #LightManager.register_light(PointLight(Vector3(2, 0.5, 0.5), 0.9, Color(0, 255, 0)))
+        LightManager.register_light(SkyboxLight(Vector3(0, 0, 0), 0.1, Color(255, 255, 200)))
+        LightManager.register_light(DirectionalLight(Vector3(0,0,0),Vector3(1,-1,1), 0.5,Color(255,255,255)))
 
         while self.running:
             self.t = pygame.time.get_ticks()
@@ -48,8 +55,8 @@ class Screen:
             EventSystem.AddOnQuitListener(self.onQuit)
             Updater.update(self.deltaTime)
 
-            #obj.SetPosition(Vector3(math.sin(self.t / 1000), math.cos(self.t / 2000)-0.5, 1))
-            obj.rotate(self.deltaTime*40)
+            # obj.set_position(Vector3(math.sin(self.t / 400), math.cos(self.t / 400)-0.5, 3))
+            # obj.rotate(self.deltaTime*200)
 
             if Drawer.is_dirty:
                 self.screen.fill((0, 0, 0))

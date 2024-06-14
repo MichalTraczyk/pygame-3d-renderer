@@ -1,3 +1,5 @@
+from pygame import Color
+
 from src.Light import LightSource
 from src.MeshSystem.WorldFace import WorldFace
 
@@ -11,11 +13,7 @@ class LightManager:
 
     @staticmethod
     def calculate_light(face: WorldFace):
-        lightlevel = 0
+        lightcolor = Color(0,0,0)
         for light in LightManager.lights:
-            lightlevel += light.get_light_level(face)
-        if lightlevel < 0:
-            lightlevel = 0
-        if lightlevel > 1:
-            lightlevel = 1
-        return lightlevel
+            lightcolor += light.get_light_level(face)
+        return lightcolor

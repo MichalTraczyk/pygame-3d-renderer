@@ -31,7 +31,7 @@ class Camera:
         screen_y = (1 - dy) * self.screen_y / 2
         return Vector2(screen_x, screen_y)
 
-    def is_vertex_in_frustrum(self, pos: Vector3):
+    def is_vertex_in_frustum(self, pos: Vector3):
 
         if pos.z < self.near_clip:
             return False
@@ -41,16 +41,20 @@ class Camera:
             return False
         return 0 <= screen_pos.y < self.screen_y
 
-    def is_face_in_frustrum(self, face: WorldFace):
-        for vertex in face.vectors():
-            if self.is_vertex_in_frustrum(vertex):
+    def is_face_in_frustum(self, face: WorldFace):
+        for vertex in face.vectors():  # sprawdzanie czy nie wychodzi za near pane
+            if vertex.z < self.near_clip:
+                return False
+        for vertex in face.vectors():  # sprawdzanie czy przynajmniej jeden jest w frustrum
+            if self.is_vertex_in_frustum(vertex):
                 return True
-        return self.is_vertex_in_frustrum(VectorMath.face_middle(face))
+        # ewentualne przepuszczanie face'a jeśli da się wyrenderować środek
+        return self.is_vertex_in_frustum(VectorMath.face_middle(face))
 
     def will_face_be_rendered(self, face: WorldFace):
-        if not self.is_face_in_frustrum(face):
+        if not self.is_face_in_frustum(face):
             return False
         normal = VectorMath.face_normal(face)
         cameranormal = VectorMath.normalize_vector(VectorMath.face_middle(face))
         dot = VectorMath.Dot(normal, cameranormal)
-        return dot <= 0
+        return dot < 0

@@ -20,5 +20,8 @@ class Mesh:
     def set_color(self, color: Color):
         self.__color = color
 
-    def get_rendered_color(self, light_level: float):
-        return Color(0, 0, 0).lerp(self.__color, light_level)
+    def get_rendered_color(self, light_color: Color):
+        r = int(self.__color.r * light_color.r / 255)
+        g = int(self.__color.g * light_color.g / 255)
+        b = int(self.__color.b * light_color.b / 255)
+        return Color(r, g, b)
