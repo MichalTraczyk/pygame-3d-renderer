@@ -41,4 +41,6 @@ class DrawableMesh(Updatable, Drawable, Transform):
         for face in worldfaces:
             lightlevel = LightManager.calculate_light(face)
             rendered_color = self.mesh.get_rendered_color(lightlevel)
-            points = self.world_fac
+            points = self.world_face_to_screen(face, camera)
+            pygame.draw.polygon(screen, rendered_color, points)
+        pass
