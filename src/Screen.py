@@ -14,6 +14,7 @@ from src.Systems.EventSystem import EventSystem
 
 
 class Screen:
+
     def __init__(self, res):
         self.resolution = res
         pygame.init()
@@ -48,11 +49,11 @@ class Screen:
             Updater.update(self.deltaTime)
 
             #obj.SetPosition(Vector3(math.sin(self.t / 1000), math.cos(self.t / 2000)-0.5, 1))
-            obj.Rotate(self.deltaTime*40)
+            obj.rotate(self.deltaTime*40)
 
             if Drawer.is_dirty:
                 self.screen.fill((0, 0, 0))
-                Drawer.Draw(self.screen, self.camera)
+                Drawer.draw(self.screen, self.camera)
                 pygame.display.flip()
                 # Drawer.is_dirty = False
 
