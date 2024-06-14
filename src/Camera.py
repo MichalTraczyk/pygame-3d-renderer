@@ -2,7 +2,7 @@ from pygame import Vector3, Vector2
 import math
 
 from src.Math.VectorMath import VectorMath
-from src.WorldFace import WorldFace
+from src.MeshSystem.WorldFace import WorldFace
 
 
 class Camera:

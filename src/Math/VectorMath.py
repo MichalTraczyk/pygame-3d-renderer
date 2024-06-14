@@ -1,7 +1,7 @@
 import math
 from pygame import Vector3
 
-from src.WorldFace import WorldFace
+from src.MeshSystem.WorldFace import WorldFace
 
 
 class VectorMath:

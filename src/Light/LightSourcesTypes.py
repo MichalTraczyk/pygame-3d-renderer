@@ -2,7 +2,7 @@ from pygame import Vector3
 
 from src.Light.LightSource import LightSource
 from src.Math.VectorMath import VectorMath
-from src.WorldFace import WorldFace
+from src.MeshSystem.WorldFace import WorldFace
 
 
 class DirectionalLight(LightSource):

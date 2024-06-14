@@ -1,5 +1,5 @@
 from src.Light import LightSource
-from src.WorldFace import WorldFace
+from src.MeshSystem.WorldFace import WorldFace
 
 
 class LightManager:

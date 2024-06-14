@@ -1,6 +1,6 @@
 from pygame import Vector3
 from src.Math.Transform import Transform
-from src.WorldFace import WorldFace
+from src.MeshSystem.WorldFace import WorldFace
 
 
 class LightSource(Transform):

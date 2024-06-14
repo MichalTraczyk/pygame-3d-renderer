@@ -4,9 +4,9 @@ from src import Camera
 from src.Light.LightManager import LightManager
 from src.Math.Transform import Transform
 from src.Systems import Drawable
-from src import Mesh
+from src.MeshSystem import Mesh
 from src.Systems.Updatable import Updatable
-from src.WorldFace import WorldFace
+from src.MeshSystem.WorldFace import WorldFace
 
 
 class DrawableMesh(Updatable, Drawable, Transform):
