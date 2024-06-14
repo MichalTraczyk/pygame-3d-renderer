@@ -7,11 +7,11 @@ class Drawer:
         cls.drawables.append(drawable)
 
     @classmethod
-    def UnregisterDrawable(cls, drawable):
+    def unregister_drawable(cls, drawable):
         if drawable in cls.drawables:
             cls.drawables.remove(drawable)
 
     @classmethod
-    def Draw(cls, screen, camera):
+    def draw(cls, screen, camera):
         for d in cls.drawables:
-            d.Draw(screen, camera)
+            d.draw(screen, camera)

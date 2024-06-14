@@ -14,7 +14,7 @@ class DrawableMesh(Updatable, Drawable, Transform):
 
     def __init__(self, pos):
         super().__init__()
-        self.SetPosition(pos)
+        self.set_position(pos)
         self.mesh = None
 
     def assignMesh(self, mesh: Mesh):
@@ -27,13 +27,13 @@ class DrawableMesh(Updatable, Drawable, Transform):
             points.append(camera.world_pos_to_screen(point))
         return points
 
-    def Draw(self, screen, camera: Camera):
+    def draw(self, screen, camera: Camera):
         worldfaces: [WorldFace] = []
         for localFace in self.mesh.get_faces():
             worldface = WorldFace(
-                self.TransformPoint(Vector3(localFace[0]))
-                , self.TransformPoint(Vector3(localFace[1]))
-                , self.TransformPoint(Vector3(localFace[2])))
+                self.transform_point(Vector3(localFace[0]))
+                , self.transform_point(Vector3(localFace[1]))
+                , self.transform_point(Vector3(localFace[2])))
 
             if camera.will_face_be_rendered(worldface):  # jeśli i tak nie będzie widać to pomijamy
                 worldfaces.append(worldface)
@@ -41,6 +41,4 @@ class DrawableMesh(Updatable, Drawable, Transform):
         for face in worldfaces:
             lightlevel = LightManager.calculate_light(face)
             rendered_color = self.mesh.get_rendered_color(lightlevel)
-            points = self.world_face_to_screen(face, camera)
-            pygame.draw.polygon(screen, rendered_color, points)
-        pass
+            points = self.world_fac
