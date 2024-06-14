@@ -21,8 +21,8 @@ class Camera:
         near_pane_x = self.near_clip * math.tan(math.radians(self.fov))
         near_pane_y = self.near_clip * math.tan(math.radians(self.fov)) * self.screen_y / self.screen_x
 
-        dx = Vector2(pos.x, pos.z) / pos.z
-        dy = Vector2(pos.y, pos.z) / pos.z
+        dx = pos.x / pos.z * self.near_clip
+        dy = pos.y / pos.z * self.near_clip
 
         dx /= near_pane_x
         dy /= near_pane_y
@@ -51,6 +51,6 @@ class Camera:
         if not self.is_face_in_frustrum(face):
             return False
         normal = VectorMath.face_normal(face)
-        cameraNormal = Vector3(0, 0, 1)
-        dot = VectorMath.Dot(normal, cameraNormal)
+        cameranormal = Vector3(0, 0, 1)
+        dot = VectorMath.Dot(normal, cameranormal)
         return dot <= 0

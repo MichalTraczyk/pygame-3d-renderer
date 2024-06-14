@@ -24,8 +24,8 @@ class VectorMath:
 
     @staticmethod
     def face_normal(face: WorldFace):
-        a = VectorMath.normalize_vector(face.v1 - face.v2)
-        b = VectorMath.normalize_vector(face.v3 - face.v2)
+        a = VectorMath.normalize_vector(face.v2 - face.v1)
+        b = VectorMath.normalize_vector(face.v3 - face.v1)
         x = a.y * b.z - a.z * b.y
         y = a.z * b.x - a.x * b.z
         z = a.x * b.y - a.y * b.x

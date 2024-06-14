@@ -27,14 +27,14 @@ class DrawableMesh(Updatable, Drawable, Transform):
         return points
 
     def Draw(self, screen, camera: Camera):
-        worldFaces: [WorldFace] = []
+        worldfaces: [WorldFace] = []
         for localFace in self.mesh.get_faces():
             worldface = WorldFace(
                 self.TransformPoint(localFace.v1), self.TransformPoint(localFace.v2), self.TransformPoint(localFace.v3))
             if camera.will_face_be_rendered(worldface):  # jeśli i tak nie będzie widać to pomijamy
-                worldFaces.append(worldface)
+                worldfaces.append(worldface)
 
-        for face in worldFaces:
+        for face in worldfaces:
             lightlevel = LightManager.calculate_light(face)
             rendered_color = self.mesh.get_rendered_color(lightlevel)
             points = self.local_face_to_screen(face, camera)

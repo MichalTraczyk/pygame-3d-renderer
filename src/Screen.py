@@ -14,7 +14,7 @@ class Screen:
         pygame.init()
 
         self.screen = pygame.display.set_mode([self.resolution, self.resolution])
-        self.camera = Camera(30, self.resolution, self.resolution)
+        self.camera = Camera(60, self.resolution, self.resolution)
 
         self.running = True
         self.getTicksLastFrame = 0
