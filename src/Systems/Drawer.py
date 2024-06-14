@@ -1,6 +1,7 @@
 class Drawer:
     drawables = []
-    is_dirty = False # na True jeśli była jakakolwiek zmiana na scenie
+    is_dirty = True  # na True jeśli była jakakolwiek zmiana na scenie
+
     @classmethod
     def RegisterDrawable(cls, drawable):
         cls.drawables.append(drawable)

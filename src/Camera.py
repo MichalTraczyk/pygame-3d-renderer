@@ -27,8 +27,8 @@ class Camera:
         dx /= near_pane_x
         dy /= near_pane_y
 
-        screen_x = (1 + dx.x) * self.screen_x / 2
-        screen_y = (1 - dy.x) * self.screen_y / 2
+        screen_x = (1 + dx) * self.screen_x / 2
+        screen_y = (1 - dy) * self.screen_y / 2
         return Vector2(screen_x, screen_y)
 
     def is_vertex_in_frustrum(self, pos: Vector3):
@@ -45,12 +45,12 @@ class Camera:
         for vertex in face.vectors():
             if self.is_vertex_in_frustrum(vertex):
                 return True
-        return False
+        return self.is_vertex_in_frustrum(VectorMath.face_middle(face))
 
     def will_face_be_rendered(self, face: WorldFace):
         if not self.is_face_in_frustrum(face):
             return False
         normal = VectorMath.face_normal(face)
-        cameranormal = Vector3(0, 0, 1)
+        cameranormal = VectorMath.normalize_vector(VectorMath.face_middle(face))
         dot = VectorMath.Dot(normal, cameranormal)
         return dot <= 0

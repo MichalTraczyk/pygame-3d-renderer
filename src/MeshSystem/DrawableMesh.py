@@ -1,9 +1,10 @@
 import pygame
+from pygame import Vector3, Color
 
 from src import Camera
 from src.Light.LightManager import LightManager
 from src.Math.Transform import Transform
-from src.Systems import Drawable
+from src.Systems.Drawable import Drawable
 from src.MeshSystem import Mesh
 from src.Systems.Updatable import Updatable
 from src.MeshSystem.WorldFace import WorldFace
@@ -19,24 +20,27 @@ class DrawableMesh(Updatable, Drawable, Transform):
     def assignMesh(self, mesh: Mesh):
         self.mesh = mesh
 
-    def local_face_to_screen(self, face: WorldFace, camera: Camera):
+    def world_face_to_screen(self, face: WorldFace, camera: Camera):
         points = []
         for point in face.vectors():
-            world_pos = self.TransformPoint(point)
-            points.append(camera.world_pos_to_screen(world_pos))
+            #world_pos = self.TransformPoint(point)
+            points.append(camera.world_pos_to_screen(point))
         return points
 
     def Draw(self, screen, camera: Camera):
         worldfaces: [WorldFace] = []
         for localFace in self.mesh.get_faces():
             worldface = WorldFace(
-                self.TransformPoint(localFace.v1), self.TransformPoint(localFace.v2), self.TransformPoint(localFace.v3))
+                self.TransformPoint(Vector3(localFace[0]))
+                , self.TransformPoint(Vector3(localFace[1]))
+                , self.TransformPoint(Vector3(localFace[2])))
+
             if camera.will_face_be_rendered(worldface):  # jeśli i tak nie będzie widać to pomijamy
                 worldfaces.append(worldface)
 
         for face in worldfaces:
             lightlevel = LightManager.calculate_light(face)
             rendered_color = self.mesh.get_rendered_color(lightlevel)
-            points = self.local_face_to_screen(face, camera)
+            points = self.world_face_to_screen(face, camera)
             pygame.draw.polygon(screen, rendered_color, points)
         pass
