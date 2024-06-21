@@ -1,5 +1,6 @@
 from pygame import Vector2
 
+from src.Light.LightSourcesTypes import *
 from src.Systems.Drawable import Drawable
 from src.Systems.Updatable import Updatable
 from src.UI.UIElements.Button import Button
@@ -15,7 +16,7 @@ class HierarchyScreen(Updatable, Drawable):
         elementHeight = 20
         self.position = position
         padding = 20
-        element_size = (elementWidth, elementHeight)
+        self.element_size = (elementWidth, elementHeight)
         import_button = Button((elementWidth, elementHeight),
                              (self.position.x + padding, self.position.y + padding), "Import")
 
@@ -28,9 +29,9 @@ class HierarchyScreen(Updatable, Drawable):
                                          (self.position.x + padding, self.position.y + 120))
 
         self.modelsList.add_select_listener(self.select_element)
-        el = ExpandableList.get_default_element(element_size, "Model1")
-        el1 = ExpandableList.get_default_element(element_size, "Model2")
-        el2 = ExpandableList.get_default_element(element_size, "Model3")
+        el = ExpandableList.get_default_element(self.element_size, "Model1")
+        el1 = ExpandableList.get_default_element(self.element_size, "Model2")
+        el2 = ExpandableList.get_default_element(self.element_size, "Model3")
         self.modelsList.add_element(el)
         self.modelsList.add_element(el1)
         self.modelsList.add_element(el2)
@@ -40,16 +41,17 @@ class HierarchyScreen(Updatable, Drawable):
         self.lightsList = ExpandableList((elementWidth, 300),
                                          (self.position.x + padding, self.position.y + 330))
         self.lightsList.add_select_listener(self.select_element)
-        ell = ExpandableList.get_default_element(element_size, "Directional Light")
-        ell1 = ExpandableList.get_default_element(element_size, "Point Light")
-        ell2 = ExpandableList.get_default_element(element_size, "Skybox Light")
-        self.lightsList.add_element(ell)
-        self.lightsList.add_element(ell1)
-        self.lightsList.add_element(ell2)
 
         self.selected_element = None
         self.selected_object = None
+    def lights_changed(self, lights):
+        self.lightsList.clear()
 
+        for l in lights:
+            e = ExpandableList.get_default_element(self.element_size, l.__str__())
+            self.lightsList.add_element(e)
+
+        print("lights changed")
     def select_element(self, element):
         print(element)
         if self.selected_element is not None:

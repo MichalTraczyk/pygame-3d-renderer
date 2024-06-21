@@ -29,8 +29,12 @@ class Screen:
         mesh = Primitives.generate_box()
         obj = DrawableMesh(Vector3(0.2, 0, 2))
         obj.assignMesh(mesh)
+
         canvas = MainCanvas(Vector2(self.resolution,self.resolution))
+        LightManager.add_change_listener(canvas.hierarchy.lights_changed)
+
         LightManager.register_light(PointLight(Vector3(-1, 0.5, 0.5), 0.9))
+        LightManager.register_light(SkyboxLight(Vector3(0, 0, 0), 0.1))
         LightManager.register_light(SkyboxLight(Vector3(0, 0, 0), 0.1))
         #LightManager.register_light(DirectionalLight(Vector3(0,0,0),Vector3(1,-1,-1), 1))
         EventSystem.AddOnQuitListener(self.onQuit)

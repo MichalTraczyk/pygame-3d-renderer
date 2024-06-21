@@ -19,6 +19,8 @@ class DirectionalLight(LightSource):
         if dot < 0:
             dot = 0
         return self.intensity * dot
+    def __str__(self):
+        return "Directional Light"
 
 
 class PointLight(LightSource):
@@ -35,6 +37,8 @@ class PointLight(LightSource):
             dot = 0
 
         return self.intensity * dot / VectorMath.Length(VectorMath.face_middle(face))
+    def __str__(self):
+        return "Point Light"
 
 
 class SkyboxLight(LightSource):
@@ -43,3 +47,6 @@ class SkyboxLight(LightSource):
 
     def get_light_level(self, face: WorldFace):
         return self.intensity
+
+    def __str__(self):
+        return "Skybox Light"

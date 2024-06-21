@@ -11,6 +11,8 @@ class ExpandableList(UIElement):
         self.indent = 10
         self.listeners = []
 
+    def clear(self):
+        del self.elements[:]
     def add_element(self, element):
         self.elements.append(element)
         self.update_positions()
