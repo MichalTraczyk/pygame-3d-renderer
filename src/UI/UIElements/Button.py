@@ -1,30 +1,29 @@
 from pygame import *
 
-from src.UI.Label import Label
-from src.UI.UIElement import UIElement
+from src.UI.UIElements.Label import Label
+from src.UI.UIElements.UIElement import UIElement
 
 
 class Button(UIElement):
 
-    def __init__(self, size, position, text:str):
+    def __init__(self, size, position, text: str, text_size=15,label_color=Color(0,0,0), color = Color(210, 210, 210), hover_color = Color(180, 180, 180), click_color = Color(240, 240, 240)):
         super().__init__(size, position)
         self.text = text
         self.on_click = []
-        self.color = Color(210,210,210)
-        self.hover_color = Color(180,180,180)
-        self.click_color = Color(240,240,240)
+        self.color = color
+        self.hover_color = hover_color
+        self.click_color = click_color
         self.current_color = self.color
-        self.label = Label(self.size,self.position,self.text,(255,255,255))
+        self.label = Label(self.size, self.position, self.text, label_color, text_size)
         self.rect = Rect(self.position, self.size)
 
     def add_listener(self, listener):
         self.on_click.append(listener)
+
     def remove_listener(self, listener):
         self.on_click.remove(listener)
 
     def draw(self, screen, camera):
-        if self.hidden:
-            return
         draw.rect(screen, self.current_color, self.rect)
 
     def on_pointer_up(self):
@@ -40,4 +39,3 @@ class Button(UIElement):
 
     def on_pointer_down(self):
         self.current_color = self.click_color
-

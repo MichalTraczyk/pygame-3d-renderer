@@ -1,6 +1,7 @@
 from pygame import Vector2, Rect, draw
 import pygame
-from src.UI.UIElement import UIElement
+from src.UI.UIElements.UIElement import UIElement
+
 
 
 class Slider(UIElement):

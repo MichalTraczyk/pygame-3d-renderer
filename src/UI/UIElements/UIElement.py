@@ -12,11 +12,8 @@ class UIElement(Updatable, Drawable):
         self.position = position
         self.was_pressed = False
         self.was_in_bounds = False
-        self.hidden = False
 
     def update(self, deltaTime):
-        if self.hidden:
-            return
         pos = pygame.mouse.get_pos()
         mouse_in_bounds = self.contains(pos)
         is_pressed = pygame.mouse.get_pressed()[0]
