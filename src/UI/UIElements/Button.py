@@ -17,6 +17,9 @@ class Button(UIElement):
         self.label = Label(self.size, self.position, self.text, label_color, text_size)
         self.rect = Rect(self.position, self.size)
 
+    def kill(self):
+        self.label.kill()
+        super().kill()
     def add_listener(self, listener):
         self.on_click.append(listener)
 
