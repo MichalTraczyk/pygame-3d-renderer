@@ -12,7 +12,9 @@ class ExpandableList(UIElement):
         self.listeners = []
 
     def clear(self):
-        del self.elements[:]
+        for e in self.elements:
+            e.kill()
+        self.elements = []
     def add_element(self, element):
         self.elements.append(element)
         self.update_positions()

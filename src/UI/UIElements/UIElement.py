@@ -47,3 +47,10 @@ class UIElement(Updatable, Drawable):
 
     def contains(self, position):
         return self.position[0] < position[0] < self.size[0] + self.position[0] and self.position[1] < position[1] < self.size[1] + self.position[1]
+
+    def __delete__(self):
+        print("Deleting UIElement")
+    def __delitem__(self, key):
+        print("deleting item")
+    def __delslice__(self, i, j):
+        print("deleting slice")

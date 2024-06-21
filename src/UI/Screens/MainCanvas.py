@@ -13,3 +13,4 @@ class MainCanvas(Updatable, Drawable):
         self.resolution = resolution
         self.hierarchy = HierarchyScreen(Vector2(self.ui_width, self.resolution[1]), Vector2(0, 0))
         self.settings = SettingsScreen(Vector2(self.ui_width, self.resolution[1]), Vector2(self.resolution[0] - 150, 0))
+        self.hierarchy.add_select_changed_listener(self.settings.open_editors_for)

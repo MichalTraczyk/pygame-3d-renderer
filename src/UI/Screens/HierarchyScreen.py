@@ -18,12 +18,12 @@ class HierarchyScreen(Updatable, Drawable):
         padding = 20
         self.element_size = (elementWidth, elementHeight)
         import_button = Button((elementWidth, elementHeight),
-                             (self.position.x + padding, self.position.y + padding), "Import")
+                               (self.position.x + padding, self.position.y + padding), "Import")
 
         import_button.add_listener(self.on_import_clicked)
 
         models_label = Label((elementWidth, elementHeight), (padding, self.position.y + 100),
-                                  "Models")
+                             "Models")
 
         self.modelsList = ExpandableList((elementWidth, 300),
                                          (self.position.x + padding, self.position.y + 120))
@@ -37,26 +37,33 @@ class HierarchyScreen(Updatable, Drawable):
         self.modelsList.add_element(el2)
 
         lights_label = Label((elementWidth, elementHeight), (padding, self.position.y + 300),
-                                  "Lights")
+                             "Lights")
         self.lightsList = ExpandableList((elementWidth, 300),
                                          (self.position.x + padding, self.position.y + 330))
         self.lightsList.add_select_listener(self.select_element)
 
         self.selected_element = None
         self.selected_object = None
+        self.selected_object_changed_listeners = []
+
     def lights_changed(self, lights):
         self.lightsList.clear()
 
         for l in lights:
             e = ExpandableList.get_default_element(self.element_size, l.__str__())
+            e.target = l
             self.lightsList.add_element(e)
 
-        print("lights changed")
     def select_element(self, element):
-        print(element)
         if self.selected_element is not None:
             self.selected_element.unselect()
         self.selected_element = element
         self.selected_object = self.selected_element.target
+        for l in self.selected_object_changed_listeners:
+            l(self.selected_object)
+
+    def add_select_changed_listener(self, listener):
+        self.selected_object_changed_listeners.append(listener)
+
     def on_import_clicked(self):
         print("import")
