@@ -67,5 +67,5 @@ class DirectionalLightEditor(LightEditor):
         self.zSlider.current_value = dir.z
 
     def get_height(self):
-        return 160
+        return 240
 
