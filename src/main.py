@@ -1,3 +1,3 @@
 from Screen import Screen
 
-screen = Screen(800)
+screen = Screen((1100,800))
