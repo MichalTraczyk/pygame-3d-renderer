@@ -16,20 +16,33 @@ class Slider(UIElement):
         p = (position[0] + self.outline, position[1] + self.outline)
         s = (size[0] - self.outline * 2, size[1] - self.outline * 2)
         self.inrect = Rect(p, s)
+        self.listeners = []
+        self.previous_value = self.current_value
 
     def update(self, deltaTime):
         super().update(deltaTime)
         if self.is_pressed:
             mouse_pos = pygame.mouse.get_pos()
             mouse_pos = self.get_normalized_mouse_position(mouse_pos)
-            self.current_value = mouse_pos.x
+            max_range_normalized = self.max - self.min
+            val = mouse_pos.x * max_range_normalized
+            self.current_value = val + self.min
+            if abs(self.current_value - self.previous_value) > 0.01:
+                for listener in self.listeners:
+                    listener(self.current_value)
+        self.previous_value = self.current_value
+
 
     def draw(self, screen, camera):
-        current_fill = (self.current_value - self.min) / self.max
+        max_range_normalized = self.max - self.min
+        current_fill = (self.current_value - self.min) / max_range_normalized
+
         self.inrect.size = (current_fill*(self.size[0] - self.outline * 2),self.size[1] - self.outline * 2)
         draw.rect(screen, (180, 180, 180), self.outrect)
         draw.rect(screen, (210, 210, 210), self.inrect)
 
+    def add_value_changed_listener(self, listener):
+        self.listeners.append(listener)
     def on_pointer_down(self):
         self.is_pressed = True
 

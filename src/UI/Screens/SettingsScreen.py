@@ -7,7 +7,6 @@ from src.Systems.Drawable import Drawable
 from src.Systems.Updatable import Updatable
 from src.UI.Editors.DirectionalLightEditor import DirectionalLightEditor
 from src.UI.Editors.LightEditor import LightEditor
-from src.UI.Editors.PointLightEditor import PointLightEditor
 from src.UI.Editors.TransformEditor import TransformEditor
 from src.UI.UIElements.Slider import Slider
 
@@ -30,17 +29,14 @@ class SettingsScreen(Drawable, Updatable):
             e.kill()
         self.editors.clear()
         curr = Vector2(self.position)
+        curr.y += 30
         if isinstance(object_to_edit, Transform):
             e = TransformEditor((curr.x, curr.y), object_to_edit)
             self.editors.append(e)
             curr.y += e.get_height()
 
-        if isinstance(object_to_edit, SkyboxLight):
+        if isinstance(object_to_edit, SkyboxLight) or isinstance(object_to_edit, PointLight):
             e = LightEditor((curr.x, curr.y), object_to_edit)
-            self.editors.append(e)
-            curr.y += e.get_height()
-        elif isinstance(object_to_edit, PointLight):
-            e = PointLightEditor((curr.x, curr.y), object_to_edit)
             self.editors.append(e)
             curr.y += e.get_height()
         elif isinstance(object_to_edit, DirectionalLight):
