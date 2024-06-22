@@ -25,6 +25,8 @@ class DirectionalLight(LightSource):
         b = int(self.color.b * value)
 
         return Color(r, g, b)
+    def __str__(self):
+        return "Directional Light"
 
 
 class PointLight(LightSource):
@@ -46,6 +48,8 @@ class PointLight(LightSource):
         b = int(self.color.b * value)
 
         return Color(r, g, b)
+    def __str__(self):
+        return "Point Light"
 
 
 class SkyboxLight(LightSource):
@@ -59,3 +63,5 @@ class SkyboxLight(LightSource):
         b = int(self.color.b * self.intensity)
 
         return Color(r, g, b)
+    def __str__(self):
+        return "Skybox Light"

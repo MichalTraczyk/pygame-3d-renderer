@@ -20,12 +20,13 @@ from pygame.locals import (
 class EventSystem:
     onQuit = []
     pressedDown = []
+
     @staticmethod
     def GetAxis():
-        axis = Vector2(0,0)
+        axis = Vector2(0, 0)
         keys = pygame.key.get_pressed()
         if keys[K_LEFT] or keys[K_a]:
-            axis.x -=1
+            axis.x -= 1
         if keys[K_RIGHT] or keys[K_d]:
             axis.x += 1
         if keys[K_UP] or keys[K_w]:
@@ -34,13 +35,16 @@ class EventSystem:
             axis.y += 1
 
         return axis
+
     @staticmethod
     def AddOnQuitListener(listener):
         EventSystem.onQuit.append(listener)
+
     @staticmethod
     def FireOnQuitEvent():
         for listener in EventSystem.onQuit:
             listener()
+
     @staticmethod
     def Update():
         EventSystem.pressedDown.clear()
@@ -49,6 +53,7 @@ class EventSystem:
                 EventSystem.pressedDown.append(event.key)
             elif event.type == QUIT:
                 EventSystem.FireOnQuitEvent()
+
     @staticmethod
     def GetKeyDown(key):
         return key in EventSystem.pressedDown

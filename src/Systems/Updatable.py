@@ -8,3 +8,8 @@ class Updatable:
 
     def update(self, deltaTime):
         pass
+
+    def kill(self):
+        if hasattr(super(), 'kill'):
+            super().kill()
+        Updater.unregister_updatable(self)
