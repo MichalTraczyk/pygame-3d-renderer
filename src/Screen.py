@@ -19,7 +19,7 @@ class Screen:
         pygame.init()
 
         self.screen = pygame.display.set_mode([self.resolution[0], self.resolution[1]])
-        self.camera = Camera(60, self.resolution[0]-300, self.resolution[1])
+        self.camera = Camera(60, self.resolution[0], self.resolution[1])
 
         self.running = True
         self.getTicksLastFrame = 0
@@ -36,13 +36,13 @@ class Screen:
         obj = DrawableMesh(Vector3(1, -2, 2))
         obj.assign_mesh(Primitives.generate_rotated_pyramid())
 
-        canvas = MainCanvas(Vector2(self.resolution,self.resolution))
+        canvas = MainCanvas(Vector2(self.resolution[0],self.resolution[1]))
         LightManager.add_change_listener(canvas.hierarchy.lights_changed)
 
         #LightManager.register_light(PointLight(Vector3(-1, 0.5, 0.5), 0.9, Color(255, 0, 0)))
         #LightManager.register_light(PointLight(Vector3(2, 0.5, 0.5), 0.9, Color(0, 255, 0)))
         LightManager.register_light(SkyboxLight(Vector3(0, 0, 0), 1, Color(255, 0, 0)))
-        #LightManager.register_light(DirectionalLight(Vector3(0,0,0),Vector3(1,-1,1), 0.5,Color(255,255,255)))
+        LightManager.register_light(DirectionalLight(Vector3(0,0,0),Vector3(1,-1,1), 0.5,Color(255,255,255)))
 
 
         EventSystem.AddOnQuitListener(self.onQuit)
