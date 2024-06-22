@@ -14,10 +14,10 @@ class LightEditor(Editor):
         start.x += 20
         self.intensity_slider = Slider((self.default_slider_size, 20), (start.x, start.y))
         self.intensity_slider.current_value = target_light.intensity
+        self.intensity_slider.add_value_changed_listener(self.intensity_changed)
         self.to_kill.append(self.intensity_slider)
         self.to_kill.append(self.label)
     def intensity_changed(self, val):
         self.target.intensity = val
-
     def get_height(self):
         return 40

@@ -27,7 +27,7 @@ class Slider(UIElement):
             max_range_normalized = self.max - self.min
             val = mouse_pos.x * max_range_normalized
             self.current_value = val + self.min
-            if abs(self.current_value - self.previous_value) > 0.01:
+            if abs(self.current_value - self.previous_value) > 0.000001:
                 for listener in self.listeners:
                     listener(self.current_value)
         self.previous_value = self.current_value

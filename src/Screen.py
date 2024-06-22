@@ -41,8 +41,8 @@ class Screen:
 
         #LightManager.register_light(PointLight(Vector3(-1, 0.5, 0.5), 0.9, Color(255, 0, 0)))
         #LightManager.register_light(PointLight(Vector3(2, 0.5, 0.5), 0.9, Color(0, 255, 0)))
-        LightManager.register_light(SkyboxLight(Vector3(0, 0, 0), 0.1, Color(255, 0, 0)))
-        LightManager.register_light(DirectionalLight(Vector3(0,0,0),Vector3(1,-1,1), 0.5,Color(255,255,255)))
+        LightManager.register_light(SkyboxLight(Vector3(0, 0, 0), 1, Color(255, 0, 0)))
+        #LightManager.register_light(DirectionalLight(Vector3(0,0,0),Vector3(1,-1,1), 0.5,Color(255,255,255)))
 
 
         EventSystem.AddOnQuitListener(self.onQuit)
