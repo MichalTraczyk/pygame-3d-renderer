@@ -6,6 +6,7 @@ from src.Light.LightManager import LightManager
 from src.Light.LightSourcesTypes import *
 from src.MeshSystem.DrawableMesh import DrawableMesh
 from src.MeshSystem.Primitives import Primitives
+from src.ModelPool import ModelPool
 from src.UI.Screens.MainCanvas import MainCanvas
 from src.Systems.Updater import Updater
 from src.Systems.Drawer import Drawer
@@ -24,6 +25,11 @@ class Screen:
         self.running = True
         self.getTicksLastFrame = 0
 
+        canvas = MainCanvas(Vector2(self.resolution[0],self.resolution[1]))
+        LightManager.add_change_listener(canvas.hierarchy.lights_changed)
+        ModelPool.add_change_listener(canvas.hierarchy.models_changed)
+
+
         mesh = Primitives.generate_box()
         obj = DrawableMesh(Vector3(2, 0, 2))
         obj.assign_mesh(mesh)
@@ -35,9 +41,6 @@ class Screen:
         obj.assign_mesh(mesh)
         obj = DrawableMesh(Vector3(1, -2, 2))
         obj.assign_mesh(Primitives.generate_rotated_pyramid())
-
-        canvas = MainCanvas(Vector2(self.resolution[0],self.resolution[1]))
-        LightManager.add_change_listener(canvas.hierarchy.lights_changed)
 
         #LightManager.register_light(PointLight(Vector3(-1, 0.5, 0.5), 0.9, Color(255, 0, 0)))
         #LightManager.register_light(PointLight(Vector3(2, 0.5, 0.5), 0.9, Color(0, 255, 0)))

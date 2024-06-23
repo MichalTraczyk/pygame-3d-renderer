@@ -29,12 +29,7 @@ class HierarchyScreen(Updatable, Drawable):
                                          (self.position.x + padding, self.position.y + 120))
 
         self.modelsList.add_select_listener(self.select_element)
-        el = ExpandableList.get_default_element(self.element_size, "Model1")
-        el1 = ExpandableList.get_default_element(self.element_size, "Model2")
-        el2 = ExpandableList.get_default_element(self.element_size, "Model3")
-        self.modelsList.add_element(el)
-        self.modelsList.add_element(el1)
-        self.modelsList.add_element(el2)
+        self.modelsList.add_select_listener(self.select_element)
 
         lights_label = Label((elementWidth, elementHeight), (padding, self.position.y + 300),
                              "Lights")
@@ -53,6 +48,13 @@ class HierarchyScreen(Updatable, Drawable):
             e = ExpandableList.get_default_element(self.element_size, l.__str__())
             e.target = l
             self.lightsList.add_element(e)
+    def models_changed(self, models):
+        self.modelsList.clear()
+
+        for m in models:
+            e = ExpandableList.get_default_element(self.element_size, m.__str__())
+            e.target = m
+            self.modelsList.add_element(e)
 
     def select_element(self, element):
         if self.selected_element is not None:

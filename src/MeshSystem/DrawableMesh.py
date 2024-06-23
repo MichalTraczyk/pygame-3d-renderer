@@ -1,9 +1,12 @@
+import random
+
 import pygame
 from pygame import Vector3, Color
 
 from src import Camera
 from src.Light.LightManager import LightManager
 from src.Math.Transform import Transform
+from src.ModelPool import ModelPool
 from src.Systems.Drawable import Drawable
 from src.MeshSystem import Mesh
 from src.Systems.Updatable import Updatable
@@ -14,6 +17,7 @@ class DrawableMesh(Updatable, Drawable, Transform):
 
     def __init__(self, pos):
         super().__init__()
+        ModelPool.register_model(self)
         self.set_position(pos)
         self.mesh = None
 
@@ -44,3 +48,10 @@ class DrawableMesh(Updatable, Drawable, Transform):
             points = self.world_face_to_screen(face, camera)
             pygame.draw.polygon(screen, rendered_color, points)
         pass
+
+    def __str__(self):
+        return "Model" + str(random.randint(0, 10))
+
+    def kill(self):
+        ModelPool.unregister_model(self)
+        super().kill()
