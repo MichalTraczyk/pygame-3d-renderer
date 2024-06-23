@@ -6,21 +6,21 @@ from src.MeshSystem.WorldFace import WorldFace
 
 class VectorMath:
     @staticmethod
-    def Dot(v1, v2):
+    def dot(v1, v2):
         return sum((a * b) for a, b in zip(v1, v2))
 
     @staticmethod
-    def Length(v):
-        return math.sqrt(VectorMath.Dot(v, v))
+    def length(v):
+        return math.sqrt(VectorMath.dot(v, v))
 
     # W radianach!!
     @staticmethod
-    def UnsignedAngle(v1, v2):
-        return math.acos(VectorMath.Dot(v1, v2) / (VectorMath.Length(v1) * VectorMath.Length(v2)))
+    def unsigned_angle(v1, v2):
+        return math.acos(VectorMath.dot(v1, v2) / (VectorMath.length(v1) * VectorMath.length(v2)))
 
     @staticmethod
     def normalize_vector(vec):
-        return vec / VectorMath.Length(vec)
+        return vec / VectorMath.length(vec)
 
     @staticmethod
     def face_normal(face: WorldFace):

@@ -13,7 +13,7 @@ class Triangle(Updatable, Drawable, Transform):
         self.speed = 200
 
     def update(self, deltaTime):
-        move = EventSystem.GetAxis() * self.speed * deltaTime
+        move = EventSystem.get_axis() * self.speed * deltaTime
         self.move(Vector3(move.x, 0, move.y))
 
     def draw(self, screen, camera):

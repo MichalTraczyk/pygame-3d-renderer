@@ -48,16 +48,16 @@ class Screen:
         LightManager.register_light(DirectionalLight(Vector3(0,0,0),Vector3(1,-1,1), 0.5,Color(255,255,255)))
 
 
-        EventSystem.AddOnQuitListener(self.onQuit)
+        EventSystem.add_on_quit_listener(self.on_quit)
         while self.running:
             self.t = pygame.time.get_ticks()
             self.deltaTime = (self.t - self.getTicksLastFrame) / 1000.0
             self.getTicksLastFrame = self.t
 
-            EventSystem.Update()
+            EventSystem.update()
 
-            if EventSystem.GetKeyDown(pygame.K_ESCAPE):
-                self.onQuit()
+            if EventSystem.get_key_down(pygame.K_ESCAPE):
+                self.on_quit()
 
             Updater.update(self.deltaTime)
 
@@ -72,5 +72,5 @@ class Screen:
 
         pygame.quit()
 
-    def onQuit(self):
+    def on_quit(self):
         self.running = False

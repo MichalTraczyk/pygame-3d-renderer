@@ -56,5 +56,5 @@ class Camera:
             return False
         normal = VectorMath.face_normal(face)
         cameranormal = VectorMath.normalize_vector(VectorMath.face_middle(face))
-        dot = VectorMath.Dot(normal, cameranormal)
+        dot = VectorMath.dot(normal, cameranormal)
         return dot < 0

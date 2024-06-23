@@ -15,7 +15,7 @@ class DirectionalLight(LightSource):
         normal = VectorMath.face_normal(face)
         directiontocamera = -VectorMath.normalize_vector(VectorMath.face_middle(face))  # do sprawdzenia
 
-        dot = VectorMath.Dot(normal, directiontocamera)
+        dot = VectorMath.dot(normal, directiontocamera)
         if dot < 0:
             dot = 0
 
@@ -38,11 +38,11 @@ class PointLight(LightSource):
         middle = VectorMath.face_middle(face)
         direction = VectorMath.normalize_vector(super().get_position() - middle)
 
-        dot = VectorMath.Dot(normal, direction)
+        dot = VectorMath.dot(normal, direction)
         if dot < 0:
             dot = 0
 
-        value = self.intensity * dot / VectorMath.Length(VectorMath.face_middle(face))
+        value = self.intensity * dot / VectorMath.length(VectorMath.face_middle(face))
         r = int(self.color.r * value)
         g = int(self.color.g * value)
         b = int(self.color.b * value)
