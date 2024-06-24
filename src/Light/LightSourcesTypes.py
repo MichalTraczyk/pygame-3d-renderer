@@ -34,13 +34,14 @@ class PointLight(LightSource):
     def get_light_level(self, face: WorldFace):
         normal = VectorMath.face_normal(face)
         middle = VectorMath.face_middle(face)
-        direction = VectorMath.normalize_vector(super().get_position() - middle)
-
+        direction = VectorMath.normalize_vector(self.get_position() - middle)
+        distance = VectorMath.Length(VectorMath.face_middle(face) - self.get_position())
         dot = VectorMath.Dot(normal, direction)
         if dot < 0:
             dot = 0
-
-        value = self.intensity * dot / VectorMath.Length(VectorMath.face_middle(face))
+        value = self.intensity * dot / distance
+        if value > 1:
+            value = 1
         r = int(self.color.r * value)
         g = int(self.color.g * value)
         b = int(self.color.b * value)
