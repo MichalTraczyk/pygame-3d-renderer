@@ -10,6 +10,10 @@ class LightManager:
 
     @staticmethod
     def add_change_listener(listener):
+        """
+        Adds listener that listens when a light count changes
+        @param listener: method to call when a lights count changes
+        """
         LightManager.lights_changed_listeners.append(listener)
     @staticmethod
     def register_light(light: LightSource):
