@@ -1,11 +1,12 @@
 from pygame import Color, font
 
 from src.Systems.Drawable import Drawable
+from src.UI.UIElements.UIElement import UIElement
 
 
-class Label(Drawable):
+class Label(UIElement):
     def __init__(self, size, position, text, color=(255, 255, 255), font_size= 15):
-        super().__init__()
+        super().__init__(size,position)
         self.color = Color(color)
         self.position = position
         self.size = size
