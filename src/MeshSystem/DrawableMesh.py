@@ -1,11 +1,12 @@
 import random
 
-import pygame
-from pygame import Vector3, Color
-
+from pygame import Vector3
 from src import Camera
 from src.Light.LightManager import LightManager
 from src.Math.Transform import Transform
+from src.Math.VectorMath import VectorMath
+from src.MeshSystem.MeshRenderer import MeshRenderer
+from src.MeshSystem.QueuedFace import QueuedFace
 from src.ModelPool import ModelPool
 from src.Systems.Drawable import Drawable
 from src.MeshSystem import Mesh
@@ -46,7 +47,8 @@ class DrawableMesh(Updatable, Drawable, Transform):
             lightlevel = LightManager.calculate_light(face)
             rendered_color = self.mesh.get_rendered_color(lightlevel)
             points = self.world_face_to_screen(face, camera)
-            pygame.draw.polygon(screen, rendered_color, points)
+            to_queue = QueuedFace(points, rendered_color, VectorMath.face_middle(face).z)
+            MeshRenderer.enqueue_face(to_queue)
         pass
 
     def __str__(self):

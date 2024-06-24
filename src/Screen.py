@@ -5,6 +5,7 @@ from src.Camera import Camera
 from src.Light.LightManager import LightManager
 from src.Light.LightSourcesTypes import *
 from src.MeshSystem.DrawableMesh import DrawableMesh
+from src.MeshSystem.MeshRenderer import MeshRenderer
 from src.MeshSystem.Primitives import Primitives
 from src.ModelPool import ModelPool
 from src.UI.Screens.MainCanvas import MainCanvas
@@ -67,6 +68,7 @@ class Screen:
             if Drawer.is_dirty:
                 self.screen.fill((0, 0, 0))
                 Drawer.draw(self.screen, self.camera)
+                MeshRenderer.draw_buffor(self.screen)
                 pygame.display.flip()
                 # Drawer.is_dirty = False
 
