@@ -66,8 +66,8 @@ class Screen:
             # obj.rotate(self.deltaTime*200)
             if Drawer.is_dirty:
                 self.screen.fill((0, 0, 0))
-                Drawer.draw(self.screen, self.camera)
                 MeshRenderer.draw_buffor(self.screen)
+                Drawer.draw(self.screen, self.camera)
                 pygame.display.flip()
                 # Drawer.is_dirty = False
 
