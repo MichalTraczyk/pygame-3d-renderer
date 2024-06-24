@@ -14,7 +14,7 @@ class LightEditor(Editor):
         start.x += 20
         self.intensity_slider = Slider((self.default_slider_size, 20), (start.x, start.y))
         self.intensity_slider.current_value = target_light.intensity
-        self.intensity_slider.add_value_changed_listener(self.intensity_changed)
+        self.intensity_slider.add_value_changed_listener(self.__intensity_changed)
         start.y += 35
         start.x -= 20
         rLabel = Label((20, 20), (start.x, start.y), "r")
@@ -36,9 +36,9 @@ class LightEditor(Editor):
         self.bSlider = Slider((self.default_slider_size, 20), (start.x, start.y), min=0, max=255)
         self.bSlider.current_value = target_light.color[2]
 
-        self.rSlider.add_value_changed_listener(self.color_changed)
-        self.gSlider.add_value_changed_listener(self.color_changed)
-        self.bSlider.add_value_changed_listener(self.color_changed)
+        self.rSlider.add_value_changed_listener(self.__color_changed)
+        self.gSlider.add_value_changed_listener(self.__color_changed)
+        self.bSlider.add_value_changed_listener(self.__color_changed)
 
         self.to_kill.append(rLabel)
         self.to_kill.append(gLabel)
@@ -51,14 +51,14 @@ class LightEditor(Editor):
         self.to_kill.append(self.intensity_slider)
         self.to_kill.append(self.label)
 
-    def color_changed(self,v):
+    def __color_changed(self, v):
         self.target.color = Color(
             (int)(self.rSlider.current_value),
             (int)(self.gSlider.current_value),
             (int)(self.bSlider.current_value)
         )
 
-    def intensity_changed(self, val):
+    def __intensity_changed(self, val):
         self.target.intensity = val
     def get_height(self):
         return 130

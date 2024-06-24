@@ -32,7 +32,7 @@ class DrawableMesh(Updatable, Drawable, Transform):
             points.append(camera.world_pos_to_screen(point))
         return points
 
-    def draw(self, screen, camera: Camera):
+    def _draw(self, screen, camera: Camera):
         worldfaces: [WorldFace] = []
         for localFace in self.mesh.get_faces():
             worldface = WorldFace(

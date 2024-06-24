@@ -28,4 +28,4 @@ class Updater:
         @type dt: float
         """
         for d in cls.updatables:
-            d.update(dt)
+            d._update(dt)

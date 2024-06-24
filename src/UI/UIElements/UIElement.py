@@ -13,44 +13,57 @@ class UIElement(Updatable, Drawable):
         self.was_pressed = False
         self.was_in_bounds = False
 
-    def update(self, deltaTime):
+    def _update(self, deltaTime):
         pos = pygame.mouse.get_pos()
-        mouse_in_bounds = self.contains(pos)
+        mouse_in_bounds = self.__contains(pos)
         is_pressed = pygame.mouse.get_pressed()[0]
         if mouse_in_bounds:
             if not self.was_in_bounds:
-                self.on_hover()
+                self._on_hover()
             if is_pressed and not self.was_pressed:
-                self.on_pointer_down()
+                self._on_pointer_down()
             elif not is_pressed and self.was_pressed:
-                self.on_pointer_up()
+                self._on_pointer_up()
         elif self.was_in_bounds:
-            self.on_unhover()
+            self._on_unhover()
 
         self.was_in_bounds = mouse_in_bounds
         self.was_pressed = is_pressed
 
-    def on_pointer_down(self):
+    def _on_pointer_down(self):
+        """
+        Event function called when the pointer starts a click on this object
+        """
         pass
 
-    def on_hover(self):
+    def _on_hover(self):
+        """
+        Event function called when the pointer starts to hover this object
+        """
         pass
 
-    def on_unhover(self):
+    def _on_unhover(self):
+        """
+        Event function called when the pointer unhovers this object
+        """
         pass
 
-    def on_pointer_up(self):
+    def _on_pointer_up(self):
+        """
+        Event function called when the pointer stops a click on this object
+        """
         pass
 
-    def draw(self, screen, camera):
+    def set_position(self, pos):
+        """
+        Sets the position of the element
+        @param pos: New position of the element
+        """
+        self.position = pos
+
+    def _draw(self, screen, camera):
         pygame.mouse.get_pos()
 
-    def contains(self, position):
-        return self.position[0] < position[0] < self.size[0] + self.position[0] and self.position[1] < position[1] < self.size[1] + self.position[1]
-
-    def __delete__(self):
-        print("Deleting UIElement")
-    def __delitem__(self, key):
-        print("deleting item")
-    def __delslice__(self, i, j):
-        print("deleting slice")
+    def __contains(self, position):
+        return self.position[0] < position[0] < self.size[0] + self.position[0] and self.position[1] < position[1] < \
+            self.size[1] + self.position[1]

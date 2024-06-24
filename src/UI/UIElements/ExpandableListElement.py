@@ -14,24 +14,30 @@ class ExpandableListElement(Button):
         self.target = None
 
     def set_position(self, new_position):
-        self.position = new_position
+        super().set_position(new_position)
         self.rect = Rect(self.position, self.size)
         self.label.set_position(new_position)
 
-    def select(self, _ = None):
+    def select(self, _=None):
+        """
+        Marks element as the selected
+        """
         self.selected = True
 
     def unselect(self):
+        """
+        Marks element as the unselected
+        """
         self.selected = False
 
-    def draw(self, screen, camera):
+    def _draw(self, screen, camera):
         prev_color = self.current_color
         if self.selected and self.current_color == self.color:
             self.current_color = self.select_color
-        super().draw(screen, camera)
+        super()._draw(screen, camera)
         self.current_color = prev_color
 
-    def on_pointer_up(self):
+    def _on_pointer_up(self):
         self.current_color = self.hover_color
         for listener in self.on_click:
             listener(self)

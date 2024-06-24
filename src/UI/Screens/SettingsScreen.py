@@ -25,6 +25,10 @@ class SettingsScreen(Drawable, Updatable):
         self.editors = []
 
     def open_editors_for(self, object_to_edit):
+        """
+        Opens UI editors for the given object basing on its components
+        @param object_to_edit: Object to be edited
+        """
         for e in self.editors:
             e.kill()
         self.editors.clear()

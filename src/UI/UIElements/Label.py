@@ -14,10 +14,12 @@ class Label(Drawable):
         self.change_text(text)
 
 
-    def draw(self, screen, camera):
+    def _draw(self, screen, camera):
         screen.blit(self.textSurface, self.position)
     def change_text(self, text):
+        """
+        Changes the text of the element
+        @param text: New text
+        """
         self.text = text
         self.textSurface = self.font.render(self.text, True, self.color)
-    def set_position(self, pos):
-        self.position = pos

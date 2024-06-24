@@ -31,4 +31,4 @@ class Drawer:
         @type camera: Camera
         """
         for d in cls.drawables:
-            d.draw(screen, camera)
+            d._draw(screen, camera)

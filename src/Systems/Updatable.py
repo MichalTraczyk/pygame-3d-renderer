@@ -6,7 +6,7 @@ class Updatable:
         super().__init__()
         Updater.register_updatable(self)
 
-    def update(self, deltaTime):
+    def _update(self, deltaTime):
         """
         Event function that is called eventy frame
         @param deltaTime: Time since last frame

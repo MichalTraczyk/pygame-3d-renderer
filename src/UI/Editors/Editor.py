@@ -15,9 +15,14 @@ class Editor(Updatable, Drawable):
         self.default_slider_size = 105
 
     def get_height(self):
+        """
+        Returns the height of the editor window
+        @return: The height of the editor window
+        @rtype: float
+        """
         return 70
 
-    def draw(self, screen, camera):
+    def _draw(self, screen, camera):
         pygame.draw.rect(screen, (210, 210, 210), self.rect, 2)
 
     def kill(self):

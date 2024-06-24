@@ -7,7 +7,7 @@ class Drawable:
         super().__init__()
         Drawer.RegisterDrawable(self)
 
-    def draw(self, screen, camera):
+    def _draw(self, screen, camera):
         """
         Event function that is called whenever we want to draw object on the screen
         """

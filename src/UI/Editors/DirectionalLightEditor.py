@@ -35,9 +35,9 @@ class DirectionalLightEditor(LightEditor):
         self.zSlider.current_value = t_pos.z
         ui_pos.x -= 20
         ui_pos.y += 25
-        self.xSlider.add_value_changed_listener(self.refresh_direction)
-        self.ySlider.add_value_changed_listener(self.refresh_direction)
-        self.zSlider.add_value_changed_listener(self.refresh_direction)
+        self.xSlider.add_value_changed_listener(self.__refresh_direction)
+        self.ySlider.add_value_changed_listener(self.__refresh_direction)
+        self.zSlider.add_value_changed_listener(self.__refresh_direction)
 
 
         self.to_kill.append(xLabel)
@@ -47,10 +47,10 @@ class DirectionalLightEditor(LightEditor):
         self.to_kill.append(zLabel)
         self.to_kill.append(self.zSlider)
         self.to_kill.append(self.direction_label)
-        self.update(0)
-        self.refresh_direction(0)
+        self._update(0)
+        self.__refresh_direction(0)
 
-    def refresh_direction(self, val):
+    def __refresh_direction(self, val):
         xf = self.xSlider.current_value
         yf = self.ySlider.current_value
         zf = self.zSlider.current_value
@@ -60,7 +60,7 @@ class DirectionalLightEditor(LightEditor):
         self.direction_label.change_text(f"dir: ({x}, {y}, {z})")
         self.target.direction = Vector3(xf,yf,zf)
 
-    def update(self, deltaTime):
+    def _update(self, deltaTime):
         dir = self.target.direction
         self.xSlider.current_value = dir.x
         self.ySlider.current_value = dir.y
