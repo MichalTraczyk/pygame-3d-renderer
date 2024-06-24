@@ -60,7 +60,7 @@ class TransformEditor(Editor):
             self.ySlider.current_value,
             self.zSlider.current_value
         ))
-        self.target.set_rotation(self.rotSlider.current_value)
+        self.target.set_local_rotation(self.rotSlider.current_value)
 
     def update(self, deltaTime):
         p = self.target.get_position()
