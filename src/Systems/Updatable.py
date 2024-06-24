@@ -7,9 +7,17 @@ class Updatable:
         Updater.register_updatable(self)
 
     def update(self, deltaTime):
+        """
+        Event function that is called eventy frame
+        @param deltaTime: Time since last frame
+        @type deltaTime: float
+        """
         pass
 
     def kill(self):
+        """
+        Destroys the object and all parents classes
+        """
         if hasattr(super(), 'kill'):
             super().kill()
         Updater.unregister_updatable(self)
