@@ -9,3 +9,7 @@ class Drawable:
 
     def draw(self, screen, camera):
         pass
+    def kill(self):
+        if hasattr(super(), 'kill'):
+            super().kill()
+        Drawer.unregister_drawable(self)
