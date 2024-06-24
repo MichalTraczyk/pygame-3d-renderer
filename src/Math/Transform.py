@@ -2,8 +2,6 @@ import math
 
 from pygame import Vector3, Vector2
 
-from src.Math.VectorMath import VectorMath
-
 
 class Transform:
     def __init__(self, position=Vector3(0, 0, 0), rotation=0):

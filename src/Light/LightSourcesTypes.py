@@ -13,9 +13,9 @@ class DirectionalLight(LightSource):
 
     def get_light_level(self, face: WorldFace):
         normal = VectorMath.face_normal(face)
-        directiontocamera = -VectorMath.normalize_vector(VectorMath.face_middle(face))  # do sprawdzenia
+        direction = -VectorMath.normalize_vector(self.direction)
 
-        dot = VectorMath.dot(normal, directiontocamera)
+        dot = VectorMath.dot(normal, direction)
         if dot < 0:
             dot = 0
 
@@ -25,6 +25,7 @@ class DirectionalLight(LightSource):
         b = int(self.color.b * value)
 
         return Color(r, g, b)
+
     def __str__(self):
         return "Directional Light"
 
@@ -37,8 +38,8 @@ class PointLight(LightSource):
         normal = VectorMath.face_normal(face)
         middle = VectorMath.face_middle(face)
         direction = VectorMath.normalize_vector(self.get_position() - middle)
-        distance = VectorMath.Length(VectorMath.face_middle(face) - self.get_position())
-        dot = VectorMath.Dot(normal, direction)
+        distance = VectorMath.length(VectorMath.face_middle(face) - self.get_position())
+        dot = VectorMath.dot(normal, direction)
         if dot < 0:
             dot = 0
         value = self.intensity * dot / distance
@@ -49,6 +50,7 @@ class PointLight(LightSource):
         b = int(self.color.b * value)
 
         return Color(r, g, b)
+
     def __str__(self):
         return "Point Light"
 
@@ -59,10 +61,13 @@ class SkyboxLight(LightSource):
 
     def get_light_level(self, face: WorldFace):
         value = self.intensity
-        r = int(self.color.r * self.intensity)
-        g = int(self.color.g * self.intensity)
-        b = int(self.color.b * self.intensity)
+        if value > 1:
+            value = 1
+        r = int(self.color.r * value)
+        g = int(self.color.g * value)
+        b = int(self.color.b * value)
 
         return Color(r, g, b)
+
     def __str__(self):
         return "Skybox Light"
