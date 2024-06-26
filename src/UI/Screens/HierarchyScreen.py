@@ -2,6 +2,7 @@ from pygame import Vector2
 import tkinter as tk
 from tkinter import filedialog
 
+from src.MeshSystem.DrawableMesh import DrawableMesh
 from src.MeshSystem.Mesh import Mesh
 from src.MeshSystem.MeshRenderer import MeshRenderer
 from src.Reader.OBJFileReader import OBJFileReader
@@ -84,6 +85,15 @@ class HierarchyScreen(Updatable, Drawable):
             try:
                 vertices, faces = OBJFileReader.read_file(file_path)
                 mesh = Mesh(vertices, faces)
+                obj = DrawableMesh(Vector3(1, 2, 3.6))
+                obj.assign_mesh(mesh)
+                self.add_model_to_scene(obj)
                 print(f"Successfully imported {file_path}")
             except Exception as e:
                 print(f"Error importing file: {e}")
+
+    def add_model_to_scene(self, obj):
+        e = ExpandableList.get_default_element(self.element_size, str(obj))
+        e.target = obj
+        self.modelsList.add_element(e)
+        self.select_element(e)
