@@ -1,5 +1,10 @@
 from pygame import Vector2
+import tkinter as tk
+from tkinter import filedialog
 
+from src.MeshSystem.Mesh import Mesh
+from src.MeshSystem.MeshRenderer import MeshRenderer
+from src.Reader.OBJFileReader import OBJFileReader
 from src.Light.LightSourcesTypes import *
 from src.Systems.Drawable import Drawable
 from src.Systems.Updatable import Updatable
@@ -68,4 +73,17 @@ class HierarchyScreen(Updatable, Drawable):
         self.selected_object_changed_listeners.append(listener)
 
     def on_import_clicked(self):
-        print("import")
+        root = tk.Tk()
+        root.withdraw()
+        file_path = filedialog.askopenfilename(
+            filetypes=[("OBJ Files", "*.obj")],
+            title="Select an OBJ File"
+        )
+
+        if file_path:
+            try:
+                vertices, faces = OBJFileReader.read_file(file_path)
+                mesh = Mesh(vertices, faces)
+                print(f"Successfully imported {file_path}")
+            except Exception as e:
+                print(f"Error importing file: {e}")
