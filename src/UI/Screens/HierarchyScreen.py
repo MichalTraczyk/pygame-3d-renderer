@@ -87,13 +87,6 @@ class HierarchyScreen(Updatable, Drawable):
                 mesh = Mesh(vertices, faces)
                 obj = DrawableMesh(Vector3(1, 2, 3.6))
                 obj.assign_mesh(mesh)
-                self.add_model_to_scene(obj)
                 print(f"Successfully imported {file_path}")
             except Exception as e:
                 print(f"Error importing file: {e}")
-
-    def add_model_to_scene(self, obj):
-        e = ExpandableList.get_default_element(self.element_size, str(obj))
-        e.target = obj
-        self.modelsList.add_element(e)
-        self.select_element(e)
