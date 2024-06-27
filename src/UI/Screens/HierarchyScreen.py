@@ -2,8 +2,10 @@ from pygame import Vector2
 import tkinter as tk
 from tkinter import filedialog
 
+from src.Light.LightManager import LightManager
 from src.MeshSystem.DrawableMesh import DrawableMesh
 from src.MeshSystem.Mesh import Mesh
+from src.MeshSystem.Primitives import Primitives
 from src.Reader.OBJFileReader import OBJFileReader
 from src.Light.LightSourcesTypes import *
 from src.Systems.Drawable import Drawable
@@ -27,10 +29,28 @@ class HierarchyScreen(Updatable, Drawable):
 
         import_button.add_listener(self.on_import_clicked)
 
+        Button((elementWidth / 4, elementHeight), (self.position.x + padding, self.position.y + 760), "Box") \
+            .add_listener(lambda: DrawableMesh(Vector3(0, 0, 2)).assign_mesh(Primitives.generate_box()))
+        Button((elementWidth / 4, elementHeight), (self.position.x + 80, self.position.y + 760), "Pyramid") \
+            .add_listener(lambda: DrawableMesh(Vector3(0, 0, 2)).assign_mesh(Primitives.generate_pyramid()))
+        Button((elementWidth / 3, elementHeight), (self.position.x + 140, self.position.y + 760), "Plane10x10") \
+            .add_listener(lambda: DrawableMesh(Vector3(0, -1, 0)).assign_mesh(Primitives.generate_plane(10, 0.5)))
+        Button((elementWidth / 3, elementHeight), (self.position.x + 220, self.position.y + 760), "Plane20x20") \
+            .add_listener(lambda: DrawableMesh(Vector3(0, -1, 0)).assign_mesh(Primitives.generate_plane(20, 0.5)))
+
+        Button((elementWidth / 3, elementHeight), (self.position.x + padding, self.position.y + 730), "Point") \
+            .add_listener(lambda: LightManager.register_light(PointLight(Vector3(0, 0, 2), 0.5, Color(255, 255, 255))))
+        Button((elementWidth / 3, elementHeight), (self.position.x + padding+100, self.position.y + 730), "Directional") \
+            .add_listener(lambda: LightManager.register_light(DirectionalLight(Vector3(0, 0, 2),Vector3(0, -1, 0), 0.5, Color(255, 255, 255))))
+        Button((elementWidth / 3, elementHeight), (self.position.x + padding+200, self.position.y + 730), "Skybox") \
+            .add_listener(lambda: LightManager.register_light(SkyboxLight(Vector3(0, 0, 2), 0.1, Color(255, 255, 255))))
+
+
+
         models_label = Label((elementWidth, elementHeight), (padding, self.position.y + 100),
                              "Models")
 
-        fps_counter = PerformanceLabel((elementWidth, elementHeight), (padding, self.position.y+padding/2))
+        fps_counter = PerformanceLabel((elementWidth, elementHeight), (padding, self.position.y + padding / 2))
 
         self.modelsList = ExpandableList((elementWidth, 300),
                                          (self.position.x + padding, self.position.y + 120))
@@ -55,6 +75,7 @@ class HierarchyScreen(Updatable, Drawable):
             e = ExpandableList.get_default_element(self.element_size, l.__str__())
             e.target = l
             self.lightsList.add_element(e)
+
     def models_changed(self, models):
         self.modelsList.clear()
 
