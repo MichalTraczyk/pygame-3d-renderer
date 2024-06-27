@@ -31,8 +31,7 @@ class DirectionalLight(LightSource):
 
     def __repr__(self):
         return (f"{self.__class__.__name__}"f"(Vector3({self.get_position()})"
-                f", {self.direction},{self.intensity},{self.color})")
-
+                f", Vector3({self.direction}),{self.intensity},Color{self.color})")
 
 class PointLight(LightSource):
     def __init__(self, pos: Vector3, intensity: float, color: Color):
