@@ -3,10 +3,12 @@ from pygame import *
 
 from src.Light.LightSourcesTypes import *
 from src.Math.Transform import Transform
+from src.MeshSystem.DrawableMesh import DrawableMesh
 from src.Systems.Drawable import Drawable
 from src.Systems.Updatable import Updatable
 from src.UI.Editors.DirectionalLightEditor import DirectionalLightEditor
 from src.UI.Editors.LightEditor import LightEditor
+from src.UI.Editors.MeshEditor import MeshEditor
 from src.UI.Editors.TransformEditor import TransformEditor
 from src.UI.UIElements.Slider import Slider
 
@@ -45,5 +47,9 @@ class SettingsScreen(Drawable, Updatable):
             curr.y += e.get_height()
         elif isinstance(object_to_edit, DirectionalLight):
             e = DirectionalLightEditor((curr.x, curr.y), object_to_edit)
+            self.editors.append(e)
+            curr.y += e.get_height()
+        if isinstance(object_to_edit,DrawableMesh):
+            e = MeshEditor((curr.x, curr.y), object_to_edit)
             self.editors.append(e)
             curr.y += e.get_height()

@@ -6,7 +6,7 @@ class Mesh:
     def __init__(self, vertices: [Vector3], faces: [(int, int, int)]):
         self.vertices = vertices  # in local position
         self.faces = faces  # as indexes of vertices
-        self.__color = Color(255, 255, 255)
+        self.color = Color(255, 255, 255)
 
     def get_faces(self):  # as vertices in local space
         fcs = []
@@ -17,11 +17,8 @@ class Mesh:
             fcs.append((v1, v2, v3))
         return fcs
 
-    def set_color(self, color: Color):
-        self.__color = color
-
     def get_rendered_color(self, light_color: Color):
-        r = int(self.__color.r * light_color.r / 255)
-        g = int(self.__color.g * light_color.g / 255)
-        b = int(self.__color.b * light_color.b / 255)
+        r = int(self.color.r * light_color.r / 255)
+        g = int(self.color.g * light_color.g / 255)
+        b = int(self.color.b * light_color.b / 255)
         return Color(r, g, b)
