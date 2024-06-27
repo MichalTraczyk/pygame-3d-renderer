@@ -9,6 +9,7 @@ from src.MeshSystem.Primitives import Primitives
 from src.Reader.OBJFileReader import OBJFileReader
 from src.Light.LightSourcesTypes import *
 from src.Systems.Drawable import Drawable
+from src.Systems.SaveSystem import SaveSystem
 from src.Systems.Updatable import Updatable
 from src.UI.Editors.ScreenEditor import ScreenEditor
 from src.UI.UIElements.Button import Button
@@ -41,14 +42,15 @@ class HierarchyScreen(Updatable, Drawable):
 
         Button((elementWidth / 3, elementHeight), (self.position.x + padding, self.position.y + 730), "Point") \
             .add_listener(lambda: LightManager.register_light(PointLight(Vector3(0, 0, 2), 0.5, Color(255, 255, 255))))
-        Button((elementWidth / 3, elementHeight), (self.position.x + padding+100, self.position.y + 730), "Directional") \
-            .add_listener(lambda: LightManager.register_light(DirectionalLight(Vector3(0, 0, 2),Vector3(0, -1, 0), 0.5, Color(255, 255, 255))))
-        Button((elementWidth / 3, elementHeight), (self.position.x + padding+200, self.position.y + 730), "Skybox") \
+        Button((elementWidth / 3, elementHeight), (self.position.x + padding + 100, self.position.y + 730),
+               "Directional") \
+            .add_listener(lambda: LightManager.register_light(
+            DirectionalLight(Vector3(0, 0, 2), Vector3(0, -1, 0), 0.5, Color(255, 255, 255))))
+        Button((elementWidth / 3, elementHeight), (self.position.x + padding + 200, self.position.y + 730), "Skybox") \
             .add_listener(lambda: LightManager.register_light(SkyboxLight(Vector3(0, 0, 2), 0.1, Color(255, 255, 255))))
 
-
         delete_button = Button((elementWidth, elementHeight),
-                        (self.position.x + padding, self.position.y + 65),"Delete")
+                               (self.position.x + padding, self.position.y + 65), "Delete")
 
         delete_button.add_listener(self.on_delete_clicked)
 
@@ -74,6 +76,14 @@ class HierarchyScreen(Updatable, Drawable):
         self.selected_object_changed_listeners = []
 
         self.screen_editor = ScreenEditor(Vector2(self.position.x + padding, self.position.y + 660))
+
+        self.save_button = Button((elementWidth / 4, elementHeight),
+                                  Vector2(self.position.x + padding, self.position.y + 500),"Save")
+
+        self.save_button.add_listener(lambda: SaveSystem.save_to_file())
+        self.load_button = Button((elementWidth / 4, elementHeight),
+                                  Vector2(self.position.x + padding, self.position.y + 530),"Load")
+        self.load_button.add_listener(lambda: SaveSystem.load_from_file())
     def lights_changed(self, lights):
         self.lightsList.clear()
 

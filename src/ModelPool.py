@@ -29,3 +29,14 @@ class ModelPool:
         cls.__pool.remove(model)
         for listener in cls.__listeners:
             listener(cls.__pool)
+
+    @classmethod
+    def get_pool(cls):
+        return cls.__pool
+    @classmethod
+    def kill_all(cls):
+        for m in cls.__pool:
+            m.kill(False)
+        cls.__pool.clear()
+        for listener in cls.__listeners:
+            listener(cls.__pool)

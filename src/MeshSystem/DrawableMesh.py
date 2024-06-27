@@ -60,9 +60,12 @@ class DrawableMesh(Updatable, Drawable, Transform):
     def __str__(self):
         return "Model" + str(random.randint(0, 10))
 
-    def kill(self):
-        ModelPool.unregister_model(self)
+
+    def kill(self, unregister = True):
+        if(unregister):
+            ModelPool.unregister_model(self)
         super().kill()
+
 
     def __repr__(self):
         return (f"{self.__class__.__name__}(Vector3({self.get_local_position()})"

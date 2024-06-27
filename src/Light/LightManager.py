@@ -33,3 +33,8 @@ class LightManager:
         for light in LightManager.lights:
             lightcolor += light.get_light_level(face)
         return lightcolor
+    @classmethod
+    def kill_all(cls):
+        cls.lights.clear()
+        for listener in LightManager.lights_changed_listeners:
+            listener(LightManager.lights)
