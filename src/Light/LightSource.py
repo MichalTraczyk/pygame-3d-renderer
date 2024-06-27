@@ -18,3 +18,6 @@ class LightSource(Transform):
         @return: Color that influence given face
         """
         return Color(0,0,0)
+
+    def __repr__(self):
+        return f"{self.__class__.__name__}(Vector3({self.get_position()}), {self.intensity},{self.color})"

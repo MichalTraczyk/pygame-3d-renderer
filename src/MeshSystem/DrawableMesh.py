@@ -63,3 +63,7 @@ class DrawableMesh(Updatable, Drawable, Transform):
     def kill(self):
         ModelPool.unregister_model(self)
         super().kill()
+
+    def __repr__(self):
+        return (f"{self.__class__.__name__}(Vector3({self.get_local_position()})"
+                f",{self.get_local_rotation()},{self.mesh.__repr__()})")
