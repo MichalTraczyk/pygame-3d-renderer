@@ -27,6 +27,11 @@ class HierarchyScreen(Updatable, Drawable):
 
         import_button.add_listener(self.on_import_clicked)
 
+        delete_button = Button((elementWidth, elementHeight),
+                        (self.position.x + padding, self.position.y + 65),"Delete")
+
+        delete_button.add_listener(self.on_delete_clicked)
+
         models_label = Label((elementWidth, elementHeight), (padding, self.position.y + 100),
                              "Models")
 
@@ -91,3 +96,11 @@ class HierarchyScreen(Updatable, Drawable):
                 print(f"Successfully imported {file_path}")
             except Exception as e:
                 print(f"Error importing file: {e}")
+
+    def on_delete_clicked(self):
+        if self.selected_element is None:
+            return
+        obj_to_remove = self.selected_element.target
+        obj_to_remove.kill()
+        for listener in self.selected_object_changed_listeners:
+            listener(None)

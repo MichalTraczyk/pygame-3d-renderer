@@ -12,4 +12,5 @@ class PerformanceLabel(Label, Updatable):
         super(PerformanceLabel, self)._draw(screen, camera)
 
     def _update(self, dt):
-        self.change_text(f'Face count: {len(MeshRenderer.faces)}   Fps: {int(1 / dt)}')
+        if dt != 0:
+            self.change_text(f'Face count: {len(MeshRenderer.faces)}   Fps: {int(1 / dt)}')
