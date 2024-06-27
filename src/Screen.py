@@ -18,6 +18,15 @@ from src.Systems.EventSystem import EventSystem
 class Screen:
 
     def __init__(self, res):
+
+        """
+        Initializes the Screen with the given resolution
+
+        Sets up the Pygame display, initializes the camera, and sets up the main game loop
+
+        @param res: The screen resolution (width, height)
+        @type res: tuple
+        """
         self.resolution = res
         pygame.init()
 

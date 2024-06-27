@@ -13,6 +13,14 @@ class SaveSystem:
     __filename = "save"
     @staticmethod
     def save_to_file():
+
+        """
+        Saves the state of all models and light sources to a file.
+
+        This method writes the string representation of all models and lights
+        in ModelPool and LightManager to the specified file.
+        """
+
         f = open(SaveSystem.__filename, "w")
         for m in ModelPool.get_pool():
             f.write(m.__repr__() + "\n")
@@ -22,6 +30,9 @@ class SaveSystem:
     @staticmethod
     def load_from_file():
 
+        """
+        Loads the state of all models and light sources from a file
+        """
         if not os.path.exists(SaveSystem.__filename):
             return
         ModelPool.kill_all()

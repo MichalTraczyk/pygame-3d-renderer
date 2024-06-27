@@ -22,11 +22,24 @@ class KeyboardMove(Updatable):
         self.last_mouse_position = pygame.mouse.get_pos()
 
     def modelpool_changed(self, pool):
+        """
+        Ensures that all models in the pool have the parent transform.
+
+        @param pool: The model pool
+        @type pool: list
+        """
         for i in pool:
             if i.get_parent() is None:
                 i.set_parent(self.parent)
 
     def _update(self, deltaTime):
+
+        """
+        Updates the position and rotation of the parent transform based on keyboard and mouse input
+
+        @param deltaTime: The time elapsed since the last update.
+        @type deltaTime: float
+        """
         _input = -EventSystem.get_axis()
         self.parent.move_localy(_input * deltaTime * self.speed)
         if pygame.mouse.get_pressed()[2]:
