@@ -46,6 +46,10 @@ class HierarchyScreen(Updatable, Drawable):
             .add_listener(lambda: LightManager.register_light(SkyboxLight(Vector3(0, 0, 2), 0.1, Color(255, 255, 255))))
 
 
+        delete_button = Button((elementWidth, elementHeight),
+                        (self.position.x + padding, self.position.y + 65),"Delete")
+
+        delete_button.add_listener(self.on_delete_clicked)
 
         models_label = Label((elementWidth, elementHeight), (padding, self.position.y + 100),
                              "Models")
@@ -100,8 +104,7 @@ class HierarchyScreen(Updatable, Drawable):
         root.withdraw()
         file_path = filedialog.askopenfilename(
             filetypes=[("OBJ Files", "*.obj")],
-            title="Select an OBJ File"
-        )
+            title="Select an OBJ File")
 
         if file_path:
             try:
@@ -112,3 +115,14 @@ class HierarchyScreen(Updatable, Drawable):
                 print(f"Successfully imported {file_path}")
             except Exception as e:
                 print(f"Error importing file: {e}")
+
+    def on_delete_clicked(self):
+        if self.selected_element is None:
+            return
+        obj_to_remove = self.selected_element.target
+        if isinstance(obj_to_remove, LightSource):
+            return
+        obj_to_remove.kill()
+        self.selected_element = None
+        for listener in self.selected_object_changed_listeners:
+            listener(None)

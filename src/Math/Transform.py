@@ -10,6 +10,10 @@ class Transform:
         self.__localPosition: Vector3 = Vector3(position)
         self.__localRotation: float = rotation
 
+    def set_parent(self, parent):
+        # self.__localPosition = parent.inverse_transform_point(self.__localPosition)
+        self.__parent = parent
+
     def get_position(self):
         """
         Returns world space position of the object
@@ -19,7 +23,7 @@ class Transform:
         if self.__parent is None:
             return Vector3(self.__localPosition)
         else:
-            self.__parent.transform_point(self.__localPosition)
+            return self.__parent.transform_point(self.__localPosition)
 
     def move(self, vector: Vector3):
         """
@@ -97,7 +101,7 @@ class Transform:
         @rtype: Vector3
         @return: Forward vector
         """
-        return Vector3(math.sin(math.radians(self.__localRotation)),0,
+        return Vector3(math.sin(math.radians(self.__localRotation)), 0,
                        math.cos(math.radians(self.__localRotation))).normalize()
 
     # local position to world
@@ -112,7 +116,7 @@ class Transform:
         """
         if vector.x == 0 and vector.z == 0:
             return self.get_position() + vector
-        anglediff =Vector2(0, 1).angle_to(Vector2(vector.x, vector.z))
+        anglediff = Vector2(0, 1).angle_to(Vector2(vector.x, vector.z))
         anglediff += self.__localRotation
         anglediff = math.radians(anglediff)
         dist = math.sqrt(vector.x * vector.x + vector.z * vector.z)
