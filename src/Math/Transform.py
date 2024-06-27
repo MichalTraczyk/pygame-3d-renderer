@@ -11,9 +11,19 @@ class Transform:
         self.__localRotation: float = rotation
 
     def set_parent(self, parent):
-        # self.__localPosition = parent.inverse_transform_point(self.__localPosition)
+        """
+        Sets parent to this transform
+        @param parent: Parent transform
+        @type parent: Transform
+        """
         self.__parent = parent
-
+    def get_parent(self):
+        """
+        Returns parent transform of this transform
+        @return: Transform parent
+        @rtype: Transform
+        """
+        return self.__parent
     def get_position(self):
         """
         Returns world space position of the object

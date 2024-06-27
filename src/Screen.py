@@ -2,6 +2,7 @@ import pygame
 from pygame import Vector2
 
 from src.Camera import Camera
+from src.KeyboardMove import KeyboardMove
 from src.Light.LightManager import LightManager
 from src.Light.LightSourcesTypes import *
 from src.MeshSystem.DrawableMesh import DrawableMesh
@@ -29,6 +30,7 @@ class Screen:
         canvas = MainCanvas(Vector2(self.resolution[0], self.resolution[1]))
         LightManager.add_change_listener(canvas.hierarchy.lights_changed)
         ModelPool.add_change_listener(canvas.hierarchy.models_changed)
+        kMove = KeyboardMove()
         '''
         mesh = Primitives.generate_box()
         obj = DrawableMesh(Vector3(2, 0, 2))
