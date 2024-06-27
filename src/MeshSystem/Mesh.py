@@ -22,3 +22,6 @@ class Mesh:
         g = int(self.color.g * light_color.g / 255)
         b = int(self.color.b * light_color.b / 255)
         return Color(r, g, b)
+
+    def __repr__(self):
+        return f"{self.__class__.__name__}({self.vertices},{self.faces})"
