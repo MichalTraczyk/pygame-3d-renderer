@@ -12,6 +12,7 @@ from src.Systems.Updatable import Updatable
 from src.UI.UIElements.Button import Button
 from src.UI.UIElements.ExpandableList import ExpandableList
 from src.UI.UIElements.ExpandableListElement import ExpandableListElement
+from src.UI.UIElements.FpsLabel import FpsLabel
 from src.UI.UIElements.Label import Label
 
 
@@ -24,12 +25,14 @@ class HierarchyScreen(Updatable, Drawable):
         padding = 20
         self.element_size = (elementWidth, elementHeight)
         import_button = Button((elementWidth, elementHeight),
-                               (self.position.x + padding, self.position.y + padding), "Import")
+                               (self.position.x + padding, self.position.y + 40), "Import")
 
         import_button.add_listener(self.on_import_clicked)
 
         models_label = Label((elementWidth, elementHeight), (padding, self.position.y + 100),
                              "Models")
+
+        fps_counter = FpsLabel((elementWidth, elementHeight), (padding, self.position.y+padding/2))
 
         self.modelsList = ExpandableList((elementWidth, 300),
                                          (self.position.x + padding, self.position.y + 120))
