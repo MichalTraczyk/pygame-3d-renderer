@@ -16,11 +16,11 @@ from src.MeshSystem.WorldFace import WorldFace
 
 class DrawableMesh(Updatable, Drawable, Transform):
 
-    def __init__(self, pos):
+    def __init__(self, pos,rot = 0,mesh = None):
         super().__init__()
         ModelPool.register_model(self)
         self.set_position(pos)
-        self.mesh = None
+        self.mesh = mesh
 
     def assign_mesh(self, mesh: Mesh):
         self.mesh = mesh

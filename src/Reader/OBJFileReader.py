@@ -16,7 +16,7 @@ class OBJFileReader:
             for line in file:
                 if line.startswith('v '):
                     parts = line.strip().split()
-                    vertices.append(Vector3(float(parts[1]), float(parts[2]), float(parts[3])))
+                    vertices.append((float(parts[1]), float(parts[2]), float(parts[3])))
                 elif line.startswith('f '):
                     parts = line.strip().split()
                     face = (int(parts[1].split('/')[0]) - 1,
