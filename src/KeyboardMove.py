@@ -31,6 +31,7 @@ class KeyboardMove(Updatable):
             diff = pygame.mouse.get_pos()[0] - self.last_mouse_position[0]
             for child in self.parent.get_children():
                 child.rotate(-diff * self.sensitivity)
+            self.parent.rotate(-diff * self.sensitivity)
             v3 = self.parent.get_position()
             simple_diff = Vector2(v3.x, v3.z)
             dist = VectorMath.length(simple_diff)

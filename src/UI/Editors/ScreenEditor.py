@@ -13,7 +13,7 @@ class ScreenEditor(Editor):
         fovLabel = Label((40, 20), (start.x, start.y), "FOV")
         start.x += 40
 
-        self.fovSlider = Slider((self.default_slider_size, 20), (start.x, start.y), 30, 120)
+        self.fovSlider = Slider((self.default_slider_size, 20), (start.x, start.y), 20, 80)
         self.fovSlider.current_value = Camera.main_camera.fov
 
         self.fovSlider.add_value_changed_listener(self.__fov_changed)

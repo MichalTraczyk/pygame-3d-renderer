@@ -13,7 +13,7 @@ class TransformEditor(Editor):
         max_position = 5
         ui_pos = Vector2(position)
         ui_pos.y += 12
-        t_pos = target.get_position()
+        t_pos = target.get_local_position()
         xLabel = Label((20, 20), (ui_pos.x, ui_pos.y), "x")
         ui_pos.x += 20
         self.xSlider = Slider((self.default_slider_size, 20), (ui_pos.x, ui_pos.y), min=min_position, max=max_position)
@@ -38,7 +38,7 @@ class TransformEditor(Editor):
         rotLabel = Label((20, 20), (ui_pos.x, ui_pos.y), "r")
         ui_pos.x += 20
         self.rotSlider = Slider((self.default_slider_size, 20), (ui_pos.x, ui_pos.y), min=0, max=360)
-        self.rotSlider.current_value = target.get_rotation()
+        self.rotSlider.current_value = target.get_local_rotation()
 
         self.xSlider.add_value_changed_listener(self.__slider_changed)
         self.ySlider.add_value_changed_listener(self.__slider_changed)
@@ -55,7 +55,7 @@ class TransformEditor(Editor):
         self.to_kill.append(self.rotSlider)
 
     def __slider_changed(self, v):
-        self.target.set_position(Vector3(
+        self.target.set_local_position(Vector3(
             self.xSlider.current_value,
             self.ySlider.current_value,
             self.zSlider.current_value
@@ -63,11 +63,11 @@ class TransformEditor(Editor):
         self.target.set_local_rotation(self.rotSlider.current_value)
 
     def _update(self, deltaTime):
-        p = self.target.get_position()
+        p = self.target.get_local_position()
         self.xSlider.current_value = p.x
         self.ySlider.current_value = p.y
         self.zSlider.current_value = p.z
-        self.rotSlider.current_value = self.target.get_rotation()
+        self.rotSlider.current_value = self.target.get_local_rotation()
 
     def get_height(self):
         return 130
