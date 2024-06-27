@@ -60,6 +60,7 @@ class HierarchyScreen(Updatable, Drawable):
             e = ExpandableList.get_default_element(self.element_size, l.__str__())
             e.target = l
             self.lightsList.add_element(e)
+
     def models_changed(self, models):
         self.modelsList.clear()
 
@@ -84,8 +85,7 @@ class HierarchyScreen(Updatable, Drawable):
         root.withdraw()
         file_path = filedialog.askopenfilename(
             filetypes=[("OBJ Files", "*.obj")],
-            title="Select an OBJ File"
-        )
+            title="Select an OBJ File")
 
         if file_path:
             try:
@@ -101,6 +101,9 @@ class HierarchyScreen(Updatable, Drawable):
         if self.selected_element is None:
             return
         obj_to_remove = self.selected_element.target
+        if isinstance(obj_to_remove, LightSource):
+            return
         obj_to_remove.kill()
+        self.selected_element = None
         for listener in self.selected_object_changed_listeners:
             listener(None)
