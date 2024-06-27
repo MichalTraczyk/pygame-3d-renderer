@@ -4,15 +4,13 @@ from tkinter import filedialog
 
 from src.MeshSystem.DrawableMesh import DrawableMesh
 from src.MeshSystem.Mesh import Mesh
-from src.MeshSystem.MeshRenderer import MeshRenderer
 from src.Reader.OBJFileReader import OBJFileReader
 from src.Light.LightSourcesTypes import *
 from src.Systems.Drawable import Drawable
 from src.Systems.Updatable import Updatable
 from src.UI.UIElements.Button import Button
 from src.UI.UIElements.ExpandableList import ExpandableList
-from src.UI.UIElements.ExpandableListElement import ExpandableListElement
-from src.UI.UIElements.FpsLabel import FpsLabel
+from src.UI.UIElements.PerformanceLabel import PerformanceLabel
 from src.UI.UIElements.Label import Label
 
 
@@ -32,7 +30,7 @@ class HierarchyScreen(Updatable, Drawable):
         models_label = Label((elementWidth, elementHeight), (padding, self.position.y + 100),
                              "Models")
 
-        fps_counter = FpsLabel((elementWidth, elementHeight), (padding, self.position.y+padding/2))
+        fps_counter = PerformanceLabel((elementWidth, elementHeight), (padding, self.position.y+padding/2))
 
         self.modelsList = ExpandableList((elementWidth, 300),
                                          (self.position.x + padding, self.position.y + 120))

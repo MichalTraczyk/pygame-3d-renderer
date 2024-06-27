@@ -4,7 +4,6 @@ from src.Systems.Drawable import Drawable
 from src.Systems.Updatable import Updatable
 from src.UI.Screens.HierarchyScreen import HierarchyScreen
 from src.UI.Screens.SettingsScreen import SettingsScreen
-from src.UI.UIElements.Slider import Slider
 
 
 class MainCanvas(Updatable, Drawable):
