@@ -39,7 +39,6 @@ class KeyboardMove(Updatable):
             angle_rad = math.radians(curr_angle)
             new_position = Vector2(math.sin(angle_rad), math.cos(angle_rad))
             new_position *= dist
-            print(new_position)
             n_pos_v3 = Vector3(new_position.x, v3.y,new_position.y)
             self.parent.set_local_position(n_pos_v3)
 
