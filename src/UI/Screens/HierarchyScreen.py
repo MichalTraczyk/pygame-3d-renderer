@@ -10,6 +10,7 @@ from src.Reader.OBJFileReader import OBJFileReader
 from src.Light.LightSourcesTypes import *
 from src.Systems.Drawable import Drawable
 from src.Systems.Updatable import Updatable
+from src.UI.Editors.ScreenEditor import ScreenEditor
 from src.UI.UIElements.Button import Button
 from src.UI.UIElements.ExpandableList import ExpandableList
 from src.UI.UIElements.PerformanceLabel import PerformanceLabel
@@ -72,6 +73,7 @@ class HierarchyScreen(Updatable, Drawable):
         self.selected_object = None
         self.selected_object_changed_listeners = []
 
+        self.screen_editor = ScreenEditor(Vector2(self.position.x + padding, self.position.y + 660))
     def lights_changed(self, lights):
         self.lightsList.clear()
 

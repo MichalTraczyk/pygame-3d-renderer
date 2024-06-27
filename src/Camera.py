@@ -4,7 +4,7 @@ import math
 from src.Math.VectorMath import VectorMath
 from src.MeshSystem.WorldFace import WorldFace
 
-
+main_camera = None
 class Camera:
 
     def __init__(self, fov: float, screen_x, screen_y, near_clip: float = 0.1):
@@ -12,7 +12,8 @@ class Camera:
         self.screen_y = screen_y
         self.screen_x = screen_x
         self.near_clip = near_clip
-
+        if main_camera is None:
+            Camera.main_camera = self
     def world_pos_to_screen(self, vertex_pos: Vector3):
         """
         Projects single vertex onto the screen
@@ -76,3 +77,6 @@ class Camera:
         cameranormal = VectorMath.normalize_vector(VectorMath.face_middle(face))
         dot = VectorMath.dot(normal, cameranormal)
         return dot < 0
+
+    def set_fov(self, fov: float):
+        self.fov = fov
