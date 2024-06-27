@@ -14,25 +14,34 @@ class Camera:
         self.near_clip = near_clip
 
     def world_pos_to_screen(self, vertex_pos: Vector3):
+        """
+        Projects single vertex onto the screen
+        @param vertex_pos: Position of vertex as Vector3 in world space
+        @rtype Vector2
+        @return: 2D position of given vertex in screen space
+        """
         pos = vertex_pos.copy()
         if pos.z == 0:
             pos.z = self.near_clip
 
-        near_pane_x = self.near_clip * math.tan(math.radians(self.fov))
-        near_pane_y = self.near_clip * math.tan(math.radians(self.fov)) * self.screen_y / self.screen_x
+        near_plane_x = self.near_clip * math.tan(math.radians(self.fov))
+        near_plane_y = self.near_clip * math.tan(math.radians(self.fov)) * self.screen_y / self.screen_x
 
         dx = pos.x / pos.z * self.near_clip
         dy = pos.y / pos.z * self.near_clip
 
-        dx /= near_pane_x
-        dy /= near_pane_y
+        dx /= near_plane_x
+        dy /= near_plane_y
 
         screen_x = (1 + dx) * self.screen_x / 2
         screen_y = (1 - dy) * self.screen_y / 2
         return Vector2(screen_x, screen_y)
 
     def is_vertex_in_frustum(self, pos: Vector3):
-
+        """
+        @param pos: Position of vertex in world space
+        @return: True if given vertex is in frustum of the camera
+        """
         if pos.z < self.near_clip:
             return False
 
@@ -42,16 +51,25 @@ class Camera:
         return 0 <= screen_pos.y < self.screen_y
 
     def is_face_in_frustum(self, face: WorldFace):
-        for vertex in face.vectors():  # sprawdzanie czy nie wychodzi za near pane
+        """
+        @param face: Face in world space to be rendered
+        @return: True if given face is in frustum of the camera
+        """
+        for vertex in face.vectors():  # checking near plane
             if vertex.z < self.near_clip:
                 return False
-        for vertex in face.vectors():  # sprawdzanie czy przynajmniej jeden jest w frustrum
+        for vertex in face.vectors():  # checking if at leas one is in frustum
             if self.is_vertex_in_frustum(vertex):
                 return True
-        # ewentualne przepuszczanie face'a jeśli da się wyrenderować środek
+        #  possible face passing if the center can be rendered
         return self.is_vertex_in_frustum(VectorMath.face_middle(face))
 
     def will_face_be_rendered(self, face: WorldFace):
+        """
+        Calculates if given WorldFace can and will be rendered
+        @param face: Face in world space to be rendered
+        @return: True if given face will be rendered
+        """
         if not self.is_face_in_frustum(face):
             return False
         normal = VectorMath.face_normal(face)

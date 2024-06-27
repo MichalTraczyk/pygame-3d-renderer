@@ -11,6 +11,9 @@ class MeshRenderer:
 
     @classmethod
     def draw_buffor(cls, screen):
+        """
+        draws all faces that were buffored in this frame
+        """
         cls.faces = sorted(cls.faces, key=lambda f: f.depth, reverse=True)
         for face in cls.faces:
             pygame.draw.polygon(screen, face.color, face.points)

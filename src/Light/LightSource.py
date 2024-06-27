@@ -11,4 +11,10 @@ class LightSource(Transform):
         self.color = color
 
     def get_light_level(self, face: WorldFace):
-        return 0
+        """
+        Calculates color of light that influence given face
+        @param face: Face to calculate light level on
+        @rtype Color
+        @return: Color that influence given face
+        """
+        return Color(0,0,0)

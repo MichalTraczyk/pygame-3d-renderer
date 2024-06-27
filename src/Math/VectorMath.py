@@ -57,6 +57,11 @@ class VectorMath:
 
     @staticmethod
     def face_normal(face: WorldFace):
+        """
+        Calculates normal vector of given WorldFace
+        @rtype: Vector3
+        @return: Normal vector of given face
+        """
         a = VectorMath.normalize_vector(face.v1 - face.v2)
         b = VectorMath.normalize_vector(face.v3 - face.v2)
         x = a.y * b.z - a.z * b.y

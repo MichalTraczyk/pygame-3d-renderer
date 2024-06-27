@@ -4,11 +4,11 @@ from pygame import Vector3, Color
 class Mesh:
 
     def __init__(self, vertices: [Vector3], faces: [(int, int, int)]):
-        self.vertices = vertices  # jako lokalna pozycja vertexów
-        self.faces = faces  # jako indeksy vertexów
+        self.vertices = vertices  # in local position
+        self.faces = faces  # as indexes of vertices
         self.__color = Color(255, 255, 255)
 
-    def get_faces(self):  # jako vertexy w local space
+    def get_faces(self):  # as vertices in local space
         fcs = []
         for f in self.faces:
             v1 = self.vertices[f[0]]

@@ -49,10 +49,6 @@ class Primitives:
         for i in range(size * (size+1)-1):
             faces.append((i, i + size + 1, i + 1))
             faces.append((i + size + 1, i + size + 2, i + 1))
-        # for z in range(size - 1):
-        #   for x in range(size - 1):
-        #      faces.append((x, (z + 1) * size + x, x + 1))
-        #     faces.append(((z + 1) * size + x, (z + 1) * size + x + 1, x + 1))
 
         size += 1
         vertices = []

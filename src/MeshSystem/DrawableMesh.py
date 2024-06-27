@@ -27,6 +27,12 @@ class DrawableMesh(Updatable, Drawable, Transform):
 
     @staticmethod
     def world_face_to_screen(face: WorldFace, camera: Camera):
+        """
+        Projects a face onto the screen of the camera
+        @param face: face as three vertices in world position
+        @param camera: camera that renders given face
+        @return: points on screen that represents given face
+        """
         points = []
         for point in face.vectors():
             points.append(camera.world_pos_to_screen(point))
@@ -40,7 +46,7 @@ class DrawableMesh(Updatable, Drawable, Transform):
                 , self.transform_point(Vector3(localFace[1]))
                 , self.transform_point(Vector3(localFace[2])))
 
-            if camera.will_face_be_rendered(worldface):  # jeśli i tak nie będzie widać to pomijamy
+            if camera.will_face_be_rendered(worldface):
                 worldfaces.append(worldface)
 
         for face in worldfaces:
