@@ -121,8 +121,9 @@ class HierarchyScreen(Updatable, Drawable):
             return
         obj_to_remove = self.selected_element.target
         if isinstance(obj_to_remove, LightSource):
-            return
-        obj_to_remove.kill()
+            LightManager.unregister_light(obj_to_remove)
+        else:
+            obj_to_remove.kill()
         self.selected_element = None
         for listener in self.selected_object_changed_listeners:
             listener(None)

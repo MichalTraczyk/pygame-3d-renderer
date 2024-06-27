@@ -22,6 +22,12 @@ class LightManager:
             listener(LightManager.lights)
 
     @staticmethod
+    def unregister_light(light: LightSource):
+        if light in LightManager.lights:
+            LightManager.lights.remove(light)
+            for listener in LightManager.lights_changed_listeners:
+                listener(LightManager.lights)
+    @staticmethod
     def calculate_light(face: WorldFace):
         lightcolor = Color(0,0,0)
         for light in LightManager.lights:
