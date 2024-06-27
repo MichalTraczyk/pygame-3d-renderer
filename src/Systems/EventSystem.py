@@ -1,5 +1,5 @@
 import pygame
-from pygame import Vector2
+from pygame import Vector2, Vector3
 
 from pygame.locals import (
     K_w,
@@ -13,7 +13,7 @@ from pygame.locals import (
     K_SPACE,
     K_ESCAPE,
     KEYDOWN,
-    QUIT,
+    QUIT, K_e,K_q
 )
 
 
@@ -28,16 +28,20 @@ class EventSystem:
         @return: Active input axis
         @rtype: Vector2
         """
-        axis = Vector2(0, 0)
+        axis = Vector3(0, 0,0)
         keys = pygame.key.get_pressed()
         if keys[K_LEFT] or keys[K_a]:
             axis.x -= 1
         if keys[K_RIGHT] or keys[K_d]:
             axis.x += 1
         if keys[K_UP] or keys[K_w]:
-            axis.y -= 1
+            axis.z += 1
         if keys[K_DOWN] or keys[K_s]:
+            axis.z -= 1
+        if keys[K_q]:
             axis.y += 1
+        if keys[K_e]:
+            axis.y -= 1
 
         return axis
 

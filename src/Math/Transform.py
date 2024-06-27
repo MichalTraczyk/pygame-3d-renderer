@@ -9,6 +9,7 @@ class Transform:
         self.__parent: Transform = None
         self.__localPosition: Vector3 = Vector3(position)
         self.__localRotation: float = rotation
+        self.__children = []
 
     def set_parent(self, parent):
         """
@@ -17,6 +18,7 @@ class Transform:
         @type parent: Transform
         """
         self.__parent = parent
+        parent.__register_child(self)
     def get_parent(self):
         """
         Returns parent transform of this transform
@@ -43,6 +45,14 @@ class Transform:
         """
         self.set_position(self.get_position() + vector)
 
+    def move_localy(self, vector: Vector3):
+        """
+        Moves object by the given vector in local space
+        @param vector: Move vector
+        @type vector: Vector3
+        """
+        self.__localPosition += vector
+
     def get_rotation(self):
         """
         Returns world space rotation of the object
@@ -52,7 +62,7 @@ class Transform:
         if self.__parent is None:
             return self.__localRotation
         else:
-            self.__parent.get_rotation() + self.__localRotation
+            return self.__parent.get_rotation() + self.__localRotation
 
     def get_local_position(self):
         """
@@ -104,6 +114,11 @@ class Transform:
         @type rot: float
         """
         self.__localRotation = rot
+
+    def __register_child(self, child):
+        self.__children.append(child)
+    def get_children(self):
+        return self.__children
 
     def get_forward_vector(self):
         """
