@@ -11,6 +11,8 @@ class Transform:
         self.__localRotation: float = rotation
         self.__children = []
 
+    def clear_children(self):
+        self.__children.clear()
     def set_parent(self, parent):
         """
         Sets parent to this transform

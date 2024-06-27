@@ -11,11 +11,13 @@ from src.Systems.Updatable import Updatable
 
 
 class KeyboardMove(Updatable):
+    parent = None
     def __init__(self):
         super().__init__()
         self.parent = Transform()
         self.speed = 5
         self.sensitivity = 0.4
+        KeyboardMove.parent = self.parent
         ModelPool.add_change_listener(self.modelpool_changed)
         self.last_mouse_position = pygame.mouse.get_pos()
 

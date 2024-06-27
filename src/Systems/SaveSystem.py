@@ -1,5 +1,6 @@
 import os
 
+from src.KeyboardMove import KeyboardMove
 from src.Light.LightManager import LightManager
 from src.Light.LightSource import LightSource
 from src.Light.LightSourcesTypes import *
@@ -25,10 +26,12 @@ class SaveSystem:
             return
         ModelPool.kill_all()
         LightManager.kill_all()
+        KeyboardMove.parent.set_local_position(Vector3(0,0,0))
+        KeyboardMove.parent.set_local_rotation(0)
+        KeyboardMove.parent.clear_children()
         f = open(SaveSystem.__filename, "r")
         for line in f:
             x = eval(line)
             if "light" in line.lower():
                 print(line)
                 LightManager.register_light(x)
-        pass
