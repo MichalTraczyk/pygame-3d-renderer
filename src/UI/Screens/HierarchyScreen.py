@@ -32,7 +32,7 @@ class HierarchyScreen(Updatable, Drawable):
         Button((elementWidth / 4, elementHeight), (self.position.x + padding, self.position.y + 760), "Box") \
             .add_listener(lambda: DrawableMesh(Vector3(0, 0, 2)).assign_mesh(Primitives.generate_box()))
         Button((elementWidth / 4, elementHeight), (self.position.x + 80, self.position.y + 760), "Pyramid") \
-            .add_listener(lambda: DrawableMesh(Vector3(0, 0, 2)).assign_mesh(Primitives.generate_pyramid()))
+            .add_listener(lambda: DrawableMesh(Vector3(0, 0, 2)).assign_mesh(Primitives.generate_rotated_pyramid()))
         Button((elementWidth / 3, elementHeight), (self.position.x + 140, self.position.y + 760), "Plane10x10") \
             .add_listener(lambda: DrawableMesh(Vector3(0, -1, 0)).assign_mesh(Primitives.generate_plane(10, 0.5)))
         Button((elementWidth / 3, elementHeight), (self.position.x + 220, self.position.y + 760), "Plane20x20") \
