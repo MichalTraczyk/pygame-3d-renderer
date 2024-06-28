@@ -3,6 +3,7 @@ import math
 import pygame
 from pygame import Vector3, Vector2
 
+from src.Light.LightManager import LightManager
 from src.Math.Transform import Transform
 from src.Math.VectorMath import VectorMath
 from src.ModelPool import ModelPool
@@ -12,6 +13,7 @@ from src.Systems.Updatable import Updatable
 
 class KeyboardMove(Updatable):
     parent = None
+
     def __init__(self):
         super().__init__()
         self.parent = Transform()
@@ -19,12 +21,18 @@ class KeyboardMove(Updatable):
         self.sensitivity = 0.4
         KeyboardMove.parent = self.parent
         ModelPool.add_change_listener(self.__modelpool_changed)
+        LightManager.add_change_listener(self.__lights_changed)
         self.last_mouse_position = pygame.mouse.get_pos()
 
     def __modelpool_changed(self, pool):
         for i in pool:
             if i.get_parent() is None:
                 i.set_parent(self.parent)
+
+    def __lights_changed(self, lights):
+        for l in lights:
+            if l.get_parent() is None:
+                l.set_parent(self.parent)
 
     def _update(self, deltaTime):
         _input = -EventSystem.get_axis()
@@ -42,7 +50,7 @@ class KeyboardMove(Updatable):
             angle_rad = math.radians(curr_angle)
             new_position = Vector2(math.sin(angle_rad), math.cos(angle_rad))
             new_position *= dist
-            n_pos_v3 = Vector3(new_position.x, v3.y,new_position.y)
+            n_pos_v3 = Vector3(new_position.x, v3.y, new_position.y)
             self.parent.set_local_position(n_pos_v3)
 
         self.last_mouse_position = pygame.mouse.get_pos()
