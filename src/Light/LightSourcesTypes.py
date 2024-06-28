@@ -13,7 +13,8 @@ class DirectionalLight(LightSource):
 
     def get_light_level(self, face: WorldFace):
         normal = VectorMath.face_normal(face)
-        direction = -VectorMath.normalize_vector(self.direction)
+        direction = self.transform_point(self.direction) - self.get_position()
+        direction = -VectorMath.normalize_vector(direction)
 
         dot = VectorMath.dot(normal, direction)
         if dot < 0:
@@ -32,6 +33,7 @@ class DirectionalLight(LightSource):
     def __repr__(self):
         return (f"{self.__class__.__name__}"f"(Vector3({self.get_position()})"
                 f", Vector3({self.direction}),{self.intensity},Color{self.color})")
+
 
 class PointLight(LightSource):
     def __init__(self, pos: Vector3, intensity: float, color: Color):
